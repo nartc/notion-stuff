@@ -1,3 +1,10 @@
+### [1.0.2](https://github.com/nartc/notion-stuff/compare/1.0.1...1.0.2) (2021-09-08)
+
+
+### Bug Fixes
+
+* **html:** grab plain text as plain image caption instead of captionTransformer ([2e36175](https://github.com/nartc/notion-stuff/commit/2e36175f708200e33824dbd8b8005d4dd3a2b09a))
+
 ### [1.0.1](https://github.com/nartc/notion-stuff/compare/1.0.0...1.0.1) (2021-09-08)
 
 

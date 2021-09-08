@@ -1,6 +1,73 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "blocks-html-parser": {
+      "root": "libs/blocks-html-parser",
+      "sourceRoot": "libs/blocks-html-parser/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/blocks-html-parser",
+            "tsConfig": "libs/blocks-html-parser/tsconfig.lib.json",
+            "packageJson": "libs/blocks-html-parser/package.json",
+            "main": "libs/blocks-html-parser/src/index.ts",
+            "assets": ["libs/blocks-html-parser/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/blocks-html-parser/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/blocks-html-parser"],
+          "options": {
+            "jestConfig": "libs/blocks-html-parser/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "scully-plugin-notion": {
+      "root": "libs/scully-plugin-notion",
+      "sourceRoot": "libs/scully-plugin-notion/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/scully-plugin-notion",
+            "tsConfig": "libs/scully-plugin-notion/tsconfig.lib.json",
+            "packageJson": "libs/scully-plugin-notion/package.json",
+            "main": "libs/scully-plugin-notion/src/index.ts",
+            "assets": ["libs/scully-plugin-notion/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/scully-plugin-notion/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/scully-plugin-notion"],
+          "options": {
+            "jestConfig": "libs/scully-plugin-notion/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }

@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@notion-stuff/blocks-html-parser": [
+        "libs/blocks-html-parser/src/index.ts"
+      ],
+      "@notion-stuff/scully-plugin-notion": [
+        "libs/scully-plugin-notion/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

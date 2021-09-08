@@ -1,3 +1,10 @@
+### [1.0.3](https://github.com/nartc/notion-stuff/compare/1.0.2...1.0.3) (2021-09-08)
+
+
+### Bug Fixes
+
+* **html:** fix list items being undefined ([1b95be1](https://github.com/nartc/notion-stuff/commit/1b95be1e5f382cef6ee79f068eba436c1d4f2b66))
+
 ### [1.0.2](https://github.com/nartc/notion-stuff/compare/1.0.1...1.0.2) (2021-09-08)
 
 

@@ -151,21 +151,30 @@ export class NotionBlocksHtmlParser {
 
   parseImage(image: ImageBlock['image']): string {
     let imageContent = '';
+    let imageCaption = '';
+
+    if (image.caption) {
+      imageCaption = this.parserOptions.captionTransformer(image.caption);
+    }
 
     switch (image.type) {
       case 'external':
-        imageContent = `<img src='${image.external.url}' alt='${image.external.url}'>`;
+        imageContent = `<img src='${image.external.url}' alt='${
+          imageCaption || image.external.url
+        }'>`;
         break;
       case 'file':
-        imageContent = `<img src='${image.file.url}' alt='${image.file.url}'>`;
+        imageContent = `<img src='${image.file.url}' alt='${
+          imageCaption || image.file.url
+        }'>`;
         break;
     }
 
-    if (image.caption) {
-      imageContent += `<em></em>`;
+    if (imageCaption) {
+      imageContent += imageCaption;
     }
 
-    return imageContent;
+    return `<p>${imageContent}</p>`;
   }
 
   parseEmbed(embed: EmbedBlock['embed']): string {
@@ -254,15 +263,15 @@ export class NotionBlocksHtmlParser {
     return {
       unsupportedParser: () =>
         `<p style='text-align: center'>Notion API Unsupported</p>`,
-      imageParser: this.parseImage,
-      embedParser: this.parseEmbed,
-      listItemParser: this.parseListItem,
-      headingOneParser: this.parseHeading('h1'),
-      headingTwoParser: this.parseHeading('h2'),
-      headingThreeParser: this.parseHeading('h3'),
-      paragraphParser: this.parseParagraph,
-      unorderedListWrapperParser: this.parseListWrapper('ul'),
-      orderedListWrapperParser: this.parseListWrapper('ol'),
+      imageParser: this.parseImage.bind(this),
+      embedParser: this.parseEmbed.bind(this),
+      listItemParser: this.parseListItem.bind(this),
+      headingOneParser: this.parseHeading('h1').bind(this),
+      headingTwoParser: this.parseHeading('h2').bind(this),
+      headingThreeParser: this.parseHeading('h3').bind(this),
+      paragraphParser: this.parseParagraph.bind(this),
+      unorderedListWrapperParser: this.parseListWrapper('ul').bind(this),
+      orderedListWrapperParser: this.parseListWrapper('ol').bind(this),
 
       boldAnnotator: (original) => `<strong>${original}</strong>`,
       codeAnnotator: (original) => `<code>${original}</code>`,

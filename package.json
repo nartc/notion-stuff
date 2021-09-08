@@ -6,7 +6,7 @@
     "start": "nx serve",
     "test": "nx test",
     "commit": "git-cz",
-    "release": "release-it",
+    "release": "dotenv release-it --",
     "build": "nx run-many --target=build --all --verbose",
     "publish": "nx run-many --target=publish --all --parallel --verbose"
   },
@@ -33,6 +33,7 @@
     "commitizen": "4.2.4",
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "6.3.0",
+    "dotenv": "10.0.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "jest": "27.0.3",

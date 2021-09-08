@@ -151,26 +151,30 @@ export class NotionBlocksHtmlParser {
 
   parseImage(image: ImageBlock['image']): string {
     let imageContent = '';
+    let plainImageCaption = '';
     let imageCaption = '';
 
     if (image.caption) {
+      plainImageCaption = image.caption
+        .map((richText) => richText.plain_text)
+        .join(' ');
       imageCaption = this.parserOptions.captionTransformer(image.caption);
     }
 
     switch (image.type) {
       case 'external':
         imageContent = `<img src='${image.external.url}' alt='${
-          imageCaption || image.external.url
+          plainImageCaption || image.external.url
         }'>`;
         break;
       case 'file':
         imageContent = `<img src='${image.file.url}' alt='${
-          imageCaption || image.file.url
+          plainImageCaption || image.file.url
         }'>`;
         break;
     }
 
-    if (imageCaption) {
+    if (image.caption) {
       imageContent += imageCaption;
     }
 

@@ -1,3 +1,10 @@
+### [1.0.1](https://github.com/nartc/notion-stuff/compare/1.0.0...1.0.1) (2021-09-08)
+
+
+### Bug Fixes
+
+* **html:** use image caption as alt if available. fix "this" issue ([5831dac](https://github.com/nartc/notion-stuff/commit/5831dac6b3f53e570e69e488d62341f3881be780))
+
 ## 1.0.0 (2021-09-08)
 
 

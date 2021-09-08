@@ -36,7 +36,7 @@
     "commitizen": "4.2.4",
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "6.3.0",
-    "dotenv": "10.0.0",
+    "dotenv-cli": "4.0.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "jest": "27.0.3",

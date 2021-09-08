@@ -49,7 +49,7 @@ export class NotionBlocksHtmlParser {
 
   parse(blocks: Block[]) {
     let html = '';
-    let listItems: TemporaryListItems = {};
+    let listItems: TemporaryListItems = { items: '' };
 
     for (const block of blocks) {
       if (NotionBlocksHtmlParser.isPreviousBlockListType(block, listItems)) {
@@ -57,7 +57,7 @@ export class NotionBlocksHtmlParser {
           listItems.type === 'bulleted_list_item'
             ? this.parserOptions.unorderedListWrapperParser(listItems.items)
             : this.parserOptions.orderedListWrapperParser(listItems.items);
-        listItems = {};
+        listItems = { items: '' };
       }
 
       switch (block.type) {

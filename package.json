@@ -8,7 +8,9 @@
     "commit": "git-cz",
     "release": "dotenv release-it --",
     "build": "nx run-many --target=build --all --verbose",
-    "publish": "nx run-many --target=publish --all --parallel --verbose"
+    "publish": "nx run-many --target=publish --all --parallel --verbose",
+    "contributors:init": "all-contributors init",
+    "contributors:add": "all-contributors add"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +32,7 @@
     "@types/node": "14.14.33",
     "@typescript-eslint/eslint-plugin": "~4.28.3",
     "@typescript-eslint/parser": "~4.28.3",
+    "all-contributors-cli": "6.20.0",
     "commitizen": "4.2.4",
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "6.3.0",

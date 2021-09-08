@@ -8,7 +8,7 @@
     "commit": "git-cz",
     "release": "dotenv release-it --",
     "build": "nx run-many --target=build --all --verbose",
-    "publish": "nx run-many --target=publish --all --parallel --verbose",
+    "publish": "nx run-many --target=publish --all --parallel",
     "contributors:init": "all-contributors init",
     "contributors:add": "all-contributors add"
   },

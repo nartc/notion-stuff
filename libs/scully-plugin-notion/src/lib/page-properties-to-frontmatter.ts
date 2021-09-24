@@ -4,7 +4,7 @@ import type {
   PropertyValue,
   RollupPropertyValue,
   SelectPropertyValue,
-  User,
+  User
 } from '@notionhq/client/build/src/api-types';
 import { camelize } from './utils';
 
@@ -43,7 +43,7 @@ function parsePropertyValue(propertyValue: PropertyValue) {
       if (propertyValue.date.end) {
         return [
           new Date(propertyValue.date.start),
-          new Date(propertyValue.date.end),
+          new Date(propertyValue.date.end)
         ];
       }
       return new Date(propertyValue.date.start);
@@ -88,13 +88,13 @@ function formularize(formulaValue: FormulaPropertyValue) {
       value = formulaValue.formula.boolean;
       break;
     case 'date':
-      if (formulaValue.formula.date.date?.end) {
+      if (formulaValue.formula.date?.end) {
         value = [
-          formulaValue.formula.date.date.start,
-          formulaValue.formula.date.date.end,
+          formulaValue.formula.date?.start,
+          formulaValue.formula.date?.end
         ];
       } else {
-        value = formulaValue.formula.date.date?.start;
+        value = formulaValue.formula.date?.start;
       }
       break;
   }
@@ -109,13 +109,13 @@ function rollup(rollupValue: RollupPropertyValue) {
       value = rollupValue.rollup.number;
       break;
     case 'date':
-      if (rollupValue.rollup.date?.date?.end) {
+      if (rollupValue.rollup.date?.end) {
         value = [
-          rollupValue.rollup.date?.date.start,
-          rollupValue.rollup.date.date.end,
+          rollupValue.rollup.date?.start,
+          rollupValue.rollup.date?.end
         ];
       } else {
-        value = rollupValue.rollup.date?.date?.start;
+        value = rollupValue.rollup.date?.start;
       }
       break;
     case 'array':
@@ -131,6 +131,6 @@ function rollup(rollupValue: RollupPropertyValue) {
 function personify(user: User) {
   return {
     name: user.name,
-    avatar: user.avatar_url,
+    avatar: user.avatar_url
   };
 }

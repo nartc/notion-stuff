@@ -1,3 +1,10 @@
+### [1.0.4](https://github.com/nartc/notion-stuff/compare/1.0.3...1.0.4) (2021-09-24)
+
+
+### Bug Fixes
+
+* **scully:** adjust Formula and RollUp block type to match NotionAPi ([53e895c](https://github.com/nartc/notion-stuff/commit/53e895c1fdc00e78296376e4abc6a92ffa5616b5))
+
 ### [1.0.3](https://github.com/nartc/notion-stuff/compare/1.0.2...1.0.3) (2021-09-08)
 
 

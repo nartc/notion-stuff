@@ -17,7 +17,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@notionhq/client": "0.4.0",
+    "@notionhq/client": "0.3.3",
     "@nrwl/cli": "12.9.0",
     "@nrwl/eslint-plugin-nx": "12.9.0",
     "@nrwl/jest": "12.9.0",

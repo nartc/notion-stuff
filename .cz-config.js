@@ -15,6 +15,7 @@ module.exports = {
 
   scopes: [
     { name: 'html', description: 'HTML parser' },
+    { name: 'markdown', description: 'Markdown parser' },
     { name: 'scully', description: 'anything Scully plugin specific' },
   ],
   // override the messages, defaults are as follows

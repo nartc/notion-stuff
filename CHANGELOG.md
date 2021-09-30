@@ -1,3 +1,17 @@
+## [2.0.0](https://github.com/nartc/notion-stuff/compare/1.0.4...2.0.0) (2021-09-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **scully:** Scully version has been bumped to v2
+* **html:** HTML Parser now uses Markdown parser. Please check README for details
+
+### Features
+
+* **html:** use Markdown parser ([9882e90](https://github.com/nartc/notion-stuff/commit/9882e9071d9034aa5ba33306689ad2daa36ed8a8))
+* **markdown:** add markdown parser ([6ed8398](https://github.com/nartc/notion-stuff/commit/6ed8398d7ef9c07c5676452b99f9427662b0ab35))
+* **scully:** bump scully version ([025c3a1](https://github.com/nartc/notion-stuff/commit/025c3a1f1425e2d7e9986bfb65e428404db4682c))
+
 ### [1.0.4](https://github.com/nartc/notion-stuff/compare/1.0.3...1.0.4) (2021-09-24)
 
 

@@ -9,7 +9,7 @@ This is a [Scully](https://scully.io) plugin to convert [Notion](https://notion.
 - [x] Convert Notion pages to static HTML
 - [x] Access to Notion page properties as `Frontmatter` (should be `ScullyRoute` from `ScullyRoutesService`)
   - [ ] Customize Notion page properties
-- [x] Customize HTML parsers
+- [x] Customize HTML parsers. Please check out `NotionBlocksHtmlParser` documentations for more details.
 
 ## Installation
 
@@ -33,28 +33,32 @@ npm install --save-dev @notion-stuff/scully-plugin-notion
 
 3. Your database needs to have the following Page Properties (Table column headers)
 
-| Title                  | Tags         | Description | Status                                    | Slug | Updated At     | Published At   |
-| ---------------------- | ------------ | ----------- | ----------------------------------------- | ---- | -------------- | -------------- |
-| This should be default | Multi Select | Text        | Select (a `Published` option is required) | Text | Date/Date-Time | Date/Date-Time |
+| Title                   | Status                                    | Slug |
+| ----------------------  | ----------------------------------------- | ---- |
+| This should be default  | Select (a `Published` option is required) | Text |
 
-- `Published` status is required because this is being used by the plugin to set the `published` flag for a specific `ScullyRoute`. Although this is required for the plugin to work as expected, your intention (as plugin consumers) to use the `published` flag is totally up to you. 
+- `Status` is required
+  - `Published` status is required because this is being used by the plugin to set the `published` flag for a specific `ScullyRoute`. Although this is required for the plugin to work as expected, your intention (as plugin consumers) to use the `published` flag is totally up to you.
 - `Slug` is utilized to setup the route to the post which is needed to be set manually as of the moment.
+  - You can call `Slug` whatever you want but this needs to match `slugKey`
 
 4. Configure the plugin in `scully.your-app.config.ts`
 
 ```ts
 import { ScullyConfig, setPluginConfig } from '@scullyio/scully';
-import { NotionDom, NotionDomRouter, NotionPluginOptions } from '@notion-stuff/scully-plugin-notion';
-
-setPluginConfig('md', { enableSyntaxHighlighting: true });
+import {
+  NotionDom,
+  NotionDomRouter,
+  NotionPluginOptions,
+} from '@notion-stuff/scully-plugin-notion';
 
 setPluginConfig(NotionDom, {
   notionBlocksHtmlParserOptions: {
     /**
     ... customer the parser ...
     */
-  }
-} as NotionPluginOptions)
+  },
+} as NotionPluginOptions);
 
 export const config: ScullyConfig = {
   projectRoot: './src',
@@ -66,8 +70,9 @@ export const config: ScullyConfig = {
       postRenderers: [NotionDom],
       databaseId: 'your-database-id', // required
       notionApiKey: 'your-integration-secret', // if this is not set, NOTION_API_KEY environment variable is used
-      basePath: '/blog', // optional, should match your route here 
-      titleSuffix: '' // optional
+      basePath: '/blog', // optional, should match your route here
+      titleSuffix: '', // optional
+      slugKey: 'slug', // optional
     },
   },
 };

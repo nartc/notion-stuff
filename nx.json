@@ -30,6 +30,9 @@
     "blocks-html-parser": {
       "tags": []
     },
+    "blocks-markdown-parser": {
+      "tags": []
+    },
     "scully-plugin-notion": {
       "tags": []
     }

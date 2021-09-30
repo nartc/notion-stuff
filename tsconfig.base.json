@@ -18,6 +18,9 @@
       "@notion-stuff/blocks-html-parser": [
         "libs/blocks-html-parser/src/index.ts"
       ],
+      "@notion-stuff/blocks-markdown-parser": [
+        "libs/blocks-markdown-parser/src/index.ts"
+      ],
       "@notion-stuff/scully-plugin-notion": [
         "libs/scully-plugin-notion/src/index.ts"
       ]

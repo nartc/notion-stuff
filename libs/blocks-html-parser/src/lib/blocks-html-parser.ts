@@ -10,9 +10,12 @@ import type {
   ParagraphBlock,
   RichText,
   RichTextText,
-  RichTextTextInput
+  RichTextTextInput,
 } from '@notionhq/client/build/src/api-types';
-import type { NotionBlocksHtmlParserOptions, TemporaryListItems } from './interfaces';
+import type {
+  NotionBlocksHtmlParserOptions,
+  TemporaryListItems,
+} from './interfaces';
 
 export class NotionBlocksHtmlParser {
   private static instance: NotionBlocksHtmlParser;

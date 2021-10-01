@@ -1,3 +1,10 @@
+### [2.0.2](https://github.com/nartc/notion-stuff/compare/2.0.1...2.0.2) (2021-10-01)
+
+
+### Bug Fixes
+
+* **markdown:** null check children before recusive call ([6d96a01](https://github.com/nartc/notion-stuff/commit/6d96a019ed4e51fbc8ab12bb6a70408cbaa718b1))
+
 ### [2.0.1](https://github.com/nartc/notion-stuff/compare/2.0.0...2.0.1) (2021-10-01)
 
 

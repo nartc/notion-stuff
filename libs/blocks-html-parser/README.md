@@ -13,7 +13,7 @@ npm install @notion-stuff/blocks-html-parser
 If you are using `NotionBlocksHtmlParser` with default configuration, you need to also install `marked` and `hljs`. More info [here](#usage)
 
 ```bash
-npm install marked highlightjs
+npm install marked highlight.js
 ```
 
 ## Usage
@@ -49,8 +49,8 @@ You can customize:
   > Make sure to `npm install marked`
 - Markdown Highlighting with `NotionBlocksHtmlParserOptions#mdHighlightingOptions`
   - If you pass in a function, you are taking over the highlighting
-  - If you pass in `hljs`, the parser will use `highlightjs` to highlight the code blocks.
-  > Make sure to `npm install highlightjs`
+  - If you pass in `hljs`, the parser will use `highlight.js` to highlight the code blocks.
+  > Make sure to `npm install highlight.js`
   - If you pass in `prism`, the parse will use `prismjs` to highlight the code blocks
   > Make sure to `npm install prismjs`
 

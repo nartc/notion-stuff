@@ -1,3 +1,15 @@
+### [2.0.1](https://github.com/nartc/notion-stuff/compare/2.0.0...2.0.1) (2021-10-01)
+
+
+### Bug Fixes
+
+* **scully:** move scully to peerDep instead ([7171397](https://github.com/nartc/notion-stuff/commit/7171397f995f975f8f096124f84c02cd99762826))
+
+
+### Documentations
+
+* **html:** fix highlight.js dep ([45fa3db](https://github.com/nartc/notion-stuff/commit/45fa3db9874c872219d3d7d1fe9931a1dd7ca831))
+
 ## [2.0.0](https://github.com/nartc/notion-stuff/compare/1.0.4...2.0.0) (2021-09-30)
 
 

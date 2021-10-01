@@ -49,7 +49,7 @@ export class NotionBlocksMarkdownParser {
     return blocks
       .reduce((markdown, childBlock) => {
         let childBlockString = '';
-        if (childBlock.has_children) {
+        if (childBlock.has_children && childBlock[childBlock.type].children) {
           childBlockString = ' '
             .repeat(depth)
             .concat(

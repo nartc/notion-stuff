@@ -1,3 +1,10 @@
+### [2.0.3](https://github.com/nartc/notion-stuff/compare/2.0.2...2.0.3) (2021-10-02)
+
+
+### Bug Fixes
+
+* **markdown:** double EOL for paragraph and adjust CodeBlock Parser ([2a4f122](https://github.com/nartc/notion-stuff/commit/2a4f122897d9bd515f9a44f11af0c06fa10b1bf8))
+
 ### [2.0.2](https://github.com/nartc/notion-stuff/compare/2.0.1...2.0.2) (2021-10-01)
 
 

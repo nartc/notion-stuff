@@ -130,15 +130,15 @@ export class NotionBlocksMarkdownParser {
   }
 
   parseParagraph(paragraphBlock: ParagraphBlock): string {
-    return this.parseRichTexts(paragraphBlock.paragraph.text).concat(EOL_MD);
+    return this.parseRichTexts(paragraphBlock.paragraph.text).concat(
+      EOL_MD.repeat(2)
+    );
   }
 
   parseCodeBlock(codeBlock: any): string {
-    return `
-      \`\`\`${codeBlock.code.language || ''}
-      ${decodeURIComponent(codeBlock.code.text[0].text.content)}
-      \`\`\`
-    `.concat(EOL_MD);
+    return `\`\`\`${codeBlock.code.language.toLowerCase() || ''}${
+      codeBlock.code.text[0].text.content
+    }\`\`\``.concat(EOL_MD);
   }
 
   parseHeading(headingBlock: HeadingBlock, headingLevel: number): string {

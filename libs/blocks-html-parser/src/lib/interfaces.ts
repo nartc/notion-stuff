@@ -2,7 +2,7 @@ import type { NotionBlocksMarkdownParserOptions } from '@notion-stuff/blocks-mar
 import type { MarkedOptions } from 'marked';
 
 export interface NotionBlocksHtmlParserOptions {
-  mdParserOptions?: NotionBlocksMarkdownParserOptions;
+  mdParserOptions?: Partial<NotionBlocksMarkdownParserOptions>;
   mdToHtmlOptions?:
     | ((
         markdown: string,

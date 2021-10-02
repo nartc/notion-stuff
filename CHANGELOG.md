@@ -1,3 +1,15 @@
+## [2.1.0](https://github.com/nartc/notion-stuff/compare/2.0.5...2.1.0) (2021-10-02)
+
+
+### Features
+
+* **markdown:** add imageAsFigure to parser options to parse image as figure element ([ffce05a](https://github.com/nartc/notion-stuff/commit/ffce05a94adb3d130d70572cdcdb8bb57de0e12f))
+
+
+### Bug Fixes
+
+* **html:** use Partial for MarkdownParserOptions instead ([0224a5e](https://github.com/nartc/notion-stuff/commit/0224a5ec3b55b3bdf9751c462a035cecf2238a04))
+
 ### [2.0.5](https://github.com/nartc/notion-stuff/compare/2.0.4...2.0.5) (2021-10-02)
 
 

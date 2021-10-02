@@ -1,3 +1,10 @@
+### [2.0.5](https://github.com/nartc/notion-stuff/compare/2.0.4...2.0.5) (2021-10-02)
+
+
+### Bug Fixes
+
+* **html:** add codeTransformer to return correct template for correct highlighter ([ef4a8fd](https://github.com/nartc/notion-stuff/commit/ef4a8fd9540f6d86aef5af4db846565153913597))
+
 ### [2.0.4](https://github.com/nartc/notion-stuff/compare/2.0.3...2.0.4) (2021-10-02)
 
 

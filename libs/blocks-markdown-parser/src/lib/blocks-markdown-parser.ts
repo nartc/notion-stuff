@@ -136,9 +136,9 @@ export class NotionBlocksMarkdownParser {
   }
 
   parseCodeBlock(codeBlock: any): string {
-    return `\`\`\`${codeBlock.code.language.toLowerCase() || ''}${
-      codeBlock.code.text[0].text.content
-    }\`\`\``.concat(EOL_MD);
+    return `\`\`\`${codeBlock.code.language.toLowerCase() || ''}
+${codeBlock.code.text[0].text.content}
+\`\`\``.concat(EOL_MD);
   }
 
   parseHeading(headingBlock: HeadingBlock, headingLevel: number): string {

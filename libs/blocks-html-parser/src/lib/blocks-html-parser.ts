@@ -72,14 +72,25 @@ export class NotionBlocksHtmlParser {
 
     const renderer = new marked.Renderer();
 
-    renderer.code = function (this: typeof renderer, code, language) {
-      code = this.options.highlight(code, language);
+    const codeTransformer = (code: unknown, language: string) => {
+      const langClass = 'language-' + language;
+      if (mdHighlightingOptions === 'hljs') {
+        return `<pre><code class='hljs ${langClass}'>${
+          (code as Record<string, unknown>).value
+        }</code></pre>`;
+      }
+
+      // prism
       if (!language) {
         return `<pre><code>${code}</code></pre>`;
       }
       // e.g. "language-js"
-      const langClass = 'language-' + language;
       return `<pre class='${langClass}'><code class='${langClass}'>${code}</code></pre>`;
+    };
+
+    renderer.code = function (this: typeof renderer, code, language) {
+      code = this.options.highlight(code, language);
+      return codeTransformer(code, code.language || language);
     };
 
     (mdToHtmlOptions as marked.MarkedOptions).renderer = renderer;
@@ -88,8 +99,10 @@ export class NotionBlocksHtmlParser {
       if (!hljs) {
         hljs = require('highlight.js');
       }
-      (mdToHtmlOptions as marked.MarkedOptions).highlight = (code, lang) =>
-        hljs.highlight(code, { language: lang });
+      (mdToHtmlOptions as marked.MarkedOptions).highlight = (code, lang) => {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language });
+      };
     } else if (mdHighlightingOptions === 'prismjs') {
       if (!prism) {
         prism = require('prismjs');

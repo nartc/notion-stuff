@@ -1,3 +1,10 @@
+### [2.0.4](https://github.com/nartc/notion-stuff/compare/2.0.3...2.0.4) (2021-10-02)
+
+
+### Bug Fixes
+
+* **markdown:** adjust format of codeBlockParser ([7c881a5](https://github.com/nartc/notion-stuff/commit/7c881a5a24402ad9dc9e2da6833014d5ad3d6902))
+
 ### [2.0.3](https://github.com/nartc/notion-stuff/compare/2.0.2...2.0.3) (2021-10-02)
 
 

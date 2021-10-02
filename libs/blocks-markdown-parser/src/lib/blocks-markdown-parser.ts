@@ -27,17 +27,19 @@ const EOL_MD = '\n';
 
 type HeadingBlock = HeadingOneBlock | HeadingTwoBlock | HeadingThreeBlock;
 
-export interface NotionBlocksMarkdownParserOptions {}
+export interface NotionBlocksMarkdownParserOptions {
+  imageAsFigure: boolean;
+}
 
 export class NotionBlocksMarkdownParser {
   private static instance: NotionBlocksMarkdownParser;
   private readonly parserOptions: Required<NotionBlocksMarkdownParserOptions>;
 
-  private constructor(options?: NotionBlocksMarkdownParserOptions) {
-    this.parserOptions = { ...(options || {}) };
+  private constructor(options?: Partial<NotionBlocksMarkdownParserOptions>) {
+    this.parserOptions = { imageAsFigure: true, ...(options || {}) };
   }
 
-  static getInstance(options?: NotionBlocksMarkdownParserOptions) {
+  static getInstance(options?: Partial<NotionBlocksMarkdownParserOptions>) {
     if (!this.instance) {
       this.instance = new this(options);
     }
@@ -59,7 +61,10 @@ export class NotionBlocksMarkdownParser {
         }
 
         if (childBlock.type === 'unsupported') {
-          markdown += 'NotionAPI Unsupported'.concat(EOL_MD, childBlockString);
+          markdown += 'NotionAPI Unsupported'.concat(
+            EOL_MD.repeat(2),
+            childBlockString
+          );
         }
 
         if (childBlock.type === 'paragraph') {
@@ -179,6 +184,14 @@ ${codeBlock.code.text[0].text.content}
 
   parseImageBlock(imageBlock: ImageBlock): string {
     const { url, caption } = this.parseFile(imageBlock.image);
+    if (this.parserOptions.imageAsFigure) {
+      return `
+<figure>
+  <img src='${url}' alt='${caption}'>
+  <figcaption>${caption}</figcaption>
+</figure>
+`.concat(EOL_MD);
+    }
     return `![${caption}](${url})`.concat(EOL_MD);
   }
 

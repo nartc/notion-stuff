@@ -1,6 +1,6 @@
 {
   "name": "@notion-stuff/blocks-markdown-parser",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "dependencies": {
     "@notionhq/client": "~0.3.1"
   },

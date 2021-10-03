@@ -1,3 +1,10 @@
+### [2.1.1](https://github.com/nartc/notion-stuff/compare/2.1.0...2.1.1) (2021-10-03)
+
+
+### Bug Fixes
+
+* **markdown:** annotate text first before annotate link ([0159038](https://github.com/nartc/notion-stuff/commit/01590384b1ca420db9ca6c29e8594ebfadc400d5))
+
 ## [2.1.0](https://github.com/nartc/notion-stuff/compare/2.0.5...2.1.0) (2021-10-02)
 
 

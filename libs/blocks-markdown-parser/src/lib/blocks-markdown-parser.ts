@@ -253,17 +253,14 @@ ${codeBlock.code.text[0].text.content}
   }
 
   parseText(richText: RichTextText): string {
-    let content = richText.text.content;
+    let content = this.annotate(richText.annotations, richText.text.content);
 
-    if (richText.text.link) {
-      content = this.annotateLink(richText.text);
-    }
-
-    return this.annotate(richText.annotations, content);
+    return richText.text.link
+      ? this.annotateLink(richText.text, content)
+      : content;
   }
 
   // TODO: support mention when we know what it actually means
-
   parseMention(mention: RichTextMention): string {
     switch (mention.mention.type) {
       case 'user':
@@ -327,8 +324,13 @@ ${codeBlock.code.text[0].text.content}
     );
   }
 
-  private annotateLink(text: RichTextText['text']): string {
-    return `[${text.content}](${text.link.url ? text.link.url : text.link})`;
+  private annotateLink(
+    text: RichTextText['text'],
+    annotatedContent: string
+  ): string {
+    return `[${annotatedContent}](${
+      text.link.url ? text.link.url : text.link
+    })`;
   }
 
   private annotateModifier(

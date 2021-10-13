@@ -1,5 +1,5 @@
 import { NotionBlocksMarkdownParser } from '@notion-stuff/blocks-markdown-parser';
-import type { Block } from '@notionhq/client/build/src/api-types';
+import type { Block } from '@notion-stuff/v4-types';
 import type { NotionBlocksHtmlParserOptions } from './interfaces';
 
 export const defaultMarkedOptions = {
@@ -68,7 +68,13 @@ export class NotionBlocksHtmlParser {
     mdToHtmlOptions,
     mdHighlightingOptions,
   }: Required<NotionBlocksHtmlParserOptions>) {
-    marked = require('marked');
+    try {
+      marked = require('marked');
+    } catch (e) {
+      const message = `Error importing package: marked. Please install "marked" package.`;
+      console.error(message);
+      throw new Error(message);
+    }
 
     const renderer = new marked.Renderer();
 
@@ -97,7 +103,13 @@ export class NotionBlocksHtmlParser {
 
     if (mdHighlightingOptions === 'hljs') {
       if (!hljs) {
-        hljs = require('highlight.js');
+        try {
+          hljs = require('highlight.js');
+        } catch (e) {
+          const message = `Error importing package: highlight.js. Please install "highlight.js" package.`;
+          console.error(message);
+          throw new Error(message);
+        }
       }
       (mdToHtmlOptions as marked.MarkedOptions).highlight = (code, lang) => {
         const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -105,17 +117,23 @@ export class NotionBlocksHtmlParser {
       };
     } else if (mdHighlightingOptions === 'prismjs') {
       if (!prism) {
-        prism = require('prismjs');
-        require('prismjs/components/prism-bash');
-        require('prismjs/components/prism-css');
-        require('prismjs/components/prism-javascript');
-        require('prismjs/components/prism-json');
-        require('prismjs/components/prism-markup');
-        require('prismjs/components/prism-markdown');
-        require('prismjs/components/prism-typescript');
-        require('prismjs/components/prism-jsx');
-        require('prismjs/components/prism-tsx');
-        require('prismjs/components/prism-docker');
+        try {
+          prism = require('prismjs');
+          require('prismjs/components/prism-bash');
+          require('prismjs/components/prism-css');
+          require('prismjs/components/prism-javascript');
+          require('prismjs/components/prism-json');
+          require('prismjs/components/prism-markup');
+          require('prismjs/components/prism-markdown');
+          require('prismjs/components/prism-typescript');
+          require('prismjs/components/prism-jsx');
+          require('prismjs/components/prism-tsx');
+          require('prismjs/components/prism-docker');
+        } catch (e) {
+          const message = `Error importing package: prismjs. Please install "prismjs" package.`;
+          console.error(message);
+          throw new Error(message);
+        }
       }
 
       (mdToHtmlOptions as marked.MarkedOptions).highlight = (code, lang) => {

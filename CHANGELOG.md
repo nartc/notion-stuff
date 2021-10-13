@@ -1,3 +1,13 @@
+## [2.2.0](https://github.com/nartc/notion-stuff/compare/2.1.1...2.2.0) (2021-10-13)
+
+
+### Features
+
+* **html:** use v4-types and update to notion 0.4 ([82bf4d7](https://github.com/nartc/notion-stuff/commit/82bf4d70cc2eee10d6eeeeefd0743c119f7bfd85))
+* **markdown:** use v4-types and update to notion 0.4 ([1431612](https://github.com/nartc/notion-stuff/commit/143161244c1543a119d517baa7646dc0bd9c5bc4))
+* **scully:** use v4-types and update to notion 0.4 ([40c3e16](https://github.com/nartc/notion-stuff/commit/40c3e1603909b3130abf6a7e1a0f97d558af5080))
+* **v4-types:** add v4-types ([9806b41](https://github.com/nartc/notion-stuff/commit/9806b41b0168764d7ff2586749e5164322313683))
+
 ### [2.1.1](https://github.com/nartc/notion-stuff/compare/2.1.0...2.1.1) (2021-10-03)
 
 

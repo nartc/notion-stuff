@@ -3,7 +3,7 @@
 - [Notion Blocks to Markdown parser](libs/blocks-markdown-parser/README.md) 
 - [Notion Blocks to HTML parser](libs/blocks-html-parser/README.md)
 - [Scully plugin](libs/scully-plugin-notion/README.md)
-
+- [Notion 0.4 Types](libs/v4-types/README.md)
 
 ## Contributors ✨
 

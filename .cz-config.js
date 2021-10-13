@@ -17,6 +17,7 @@ module.exports = {
     { name: 'html', description: 'HTML parser' },
     { name: 'markdown', description: 'Markdown parser' },
     { name: 'scully', description: 'anything Scully plugin specific' },
+    { name: 'v4-types', description: 'anything related to Notion 0.4 Typings' },
   ],
   // override the messages, defaults are as follows
   messages: {

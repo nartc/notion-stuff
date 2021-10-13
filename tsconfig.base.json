@@ -23,7 +23,8 @@
       ],
       "@notion-stuff/scully-plugin-notion": [
         "libs/scully-plugin-notion/src/index.ts"
-      ]
+      ],
+      "@notion-stuff/v4-types": ["libs/v4-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

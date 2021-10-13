@@ -35,6 +35,9 @@
     },
     "scully-plugin-notion": {
       "tags": []
+    },
+    "v4-types": {
+      "tags": ["scope:v4-types", "type:lib"]
     }
   }
 }

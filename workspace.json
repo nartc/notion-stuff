@@ -150,6 +150,56 @@
           }
         }
       }
+    },
+    "v4-types": {
+      "root": "libs/v4-types",
+      "sourceRoot": "libs/v4-types/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/libs/v4-types",
+            "tsConfig": "libs/v4-types/tsconfig.lib.json",
+            "packageJson": "libs/v4-types/package.json",
+            "main": "libs/v4-types/src/index.ts",
+            "assets": [
+              "libs/v4-types/*.md"
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "libs/v4-types/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/v4-types"
+          ],
+          "options": {
+            "jestConfig": "libs/v4-types/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "publish": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npm publish",
+            "cwd": "dist/libs/v4-types"
+          }
+        }
+      }
     }
   },
   "cli": {

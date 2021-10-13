@@ -1,0 +1,13 @@
+{
+  "name": "@notion-stuff/v4-types",
+  "version": "0.0.1",
+  "dependencies": {
+    "@notionhq/client": "~0.4.0"
+  },
+  "peerDependencies": {
+    "@scullyio/scully": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

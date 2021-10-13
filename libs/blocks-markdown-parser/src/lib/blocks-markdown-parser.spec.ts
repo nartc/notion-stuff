@@ -1,7 +1,7 @@
-import { blocksMarkdownParser } from './blocks-markdown-parser';
+import { NotionBlocksMarkdownParser } from './blocks-markdown-parser';
 
-describe('blocksMarkdownParser', () => {
+describe(NotionBlocksMarkdownParser.name, () => {
   it('should work', () => {
-    expect(blocksMarkdownParser()).toEqual('blocks-markdown-parser');
+    expect(NotionBlocksMarkdownParser.getInstance()).toBeTruthy();
   });
 });

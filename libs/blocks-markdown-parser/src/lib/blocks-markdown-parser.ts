@@ -3,17 +3,21 @@ import type {
   AudioBlock,
   Block,
   BulletedListItemBlock,
+  CalloutBlock,
+  CalloutIconEmoji,
+  CalloutIconExternal,
+  CalloutIconFile,
+  CodeBlock,
   EmbedBlock,
   ExternalFileWithCaption,
   FileBlock,
   FileWithCaption,
-  HeadingOneBlock,
-  HeadingThreeBlock,
-  HeadingTwoBlock,
+  HeadingBlock,
   ImageBlock,
   NumberedListItemBlock,
   ParagraphBlock,
   PDFBlock,
+  QuoteBlock,
   RichText,
   RichTextEquation,
   RichTextMention,
@@ -21,11 +25,9 @@ import type {
   ToDoBlock,
   ToggleBlock,
   VideoBlock,
-} from '@notionhq/client/build/src/api-types';
+} from '@notion-stuff/v4-types';
 
 const EOL_MD = '\n';
-
-type HeadingBlock = HeadingOneBlock | HeadingTwoBlock | HeadingThreeBlock;
 
 export interface NotionBlocksMarkdownParserOptions {
   imageAsFigure: boolean;
@@ -71,9 +73,17 @@ export class NotionBlocksMarkdownParser {
           markdown += this.parseParagraph(childBlock).concat(childBlockString);
         }
 
-        // @ts-ignore
         if (childBlock.type === 'code') {
           markdown += this.parseCodeBlock(childBlock).concat(childBlockString);
+        }
+
+        if (childBlock.type === 'quote') {
+          markdown += this.parseQuoteBlock(childBlock).concat(childBlockString);
+        }
+
+        if (childBlock.type === 'callout') {
+          markdown +=
+            this.parseCalloutBlock(childBlock).concat(childBlockString);
         }
 
         if (childBlock.type.startsWith('heading_')) {
@@ -140,10 +150,39 @@ export class NotionBlocksMarkdownParser {
     );
   }
 
-  parseCodeBlock(codeBlock: any): string {
+  parseCodeBlock(codeBlock: CodeBlock): string {
     return `\`\`\`${codeBlock.code.language.toLowerCase() || ''}
-${codeBlock.code.text[0].text.content}
+${(codeBlock.code.text[0] as RichTextText).text.content}
 \`\`\``.concat(EOL_MD);
+  }
+
+  parseQuoteBlock(quoteBlock: QuoteBlock): string {
+    return `> ${this.parseRichTexts(quoteBlock.quote.text)}`.concat(EOL_MD);
+  }
+
+  parseCalloutBlock(calloutBlock: CalloutBlock) {
+    const callout = `<p notion-callout>
+{{icon}}
+${this.parseRichTexts(calloutBlock.callout.text)}
+</p>`;
+
+    function getCalloutIcon(
+      icon: CalloutIconEmoji | CalloutIconExternal | CalloutIconFile
+    ) {
+      switch (icon.type) {
+        case 'emoji':
+          return `<span notion-callout-emoji>${icon.emoji}</span>`;
+        case 'external':
+          return `<img notion-callout-external src='${icon.external.url}' alt='notion-callout-external-link'/>`;
+        case 'file':
+          // TODO: add support for Callout File
+          return `notion-callout-file`;
+      }
+    }
+
+    return callout
+      .replace('{{icon}}', getCalloutIcon(calloutBlock.callout.icon))
+      .concat(EOL_MD);
   }
 
   parseHeading(headingBlock: HeadingBlock, headingLevel: number): string {
@@ -200,17 +239,17 @@ ${codeBlock.code.text[0].text.content}
     return `![${caption}](${url})`;
   }
 
-  private parseVideoBlock(videoBlock: VideoBlock): string {
+  parseVideoBlock(videoBlock: VideoBlock): string {
     const { url, caption } = this.parseFile(videoBlock.video);
     return `To be supported: ${url} with ${caption}`.concat(EOL_MD);
   }
 
-  private parseFileBlock(fileBlock: FileBlock): string {
+  parseFileBlock(fileBlock: FileBlock): string {
     const { url, caption } = this.parseFile(fileBlock.file);
     return `To be supported: ${url} with ${caption}`.concat(EOL_MD);
   }
 
-  private parsePdfBlock(pdfBlock: PDFBlock): string {
+  parsePdfBlock(pdfBlock: PDFBlock): string {
     const { url, caption } = this.parseFile(pdfBlock.pdf);
     return `
 <figure>
@@ -261,6 +300,7 @@ ${codeBlock.code.text[0].text.content}
   }
 
   // TODO: support mention when we know what it actually means
+
   parseMention(mention: RichTextMention): string {
     switch (mention.mention.type) {
       case 'user':
@@ -311,13 +351,16 @@ ${codeBlock.code.text[0].text.content}
     return Object.entries(annotations).reduce(
       (
         annotatedContent,
-        [modifier, isOnOrColor]: [keyof Annotations, boolean | string]
+        [modifier, isOnOrColor]: [
+          keyof Annotations,
+          boolean | Annotations['color']
+        ]
       ) =>
         isOnOrColor
           ? this.annotateModifier(
               modifier,
               annotatedContent,
-              isOnOrColor as string
+              isOnOrColor as Annotations['color']
             )
           : annotatedContent,
       originalContent
@@ -336,7 +379,7 @@ ${codeBlock.code.text[0].text.content}
   private annotateModifier(
     modifier: keyof Annotations,
     originalContent: string,
-    color?: string
+    color?: Annotations['color']
   ): string {
     switch (modifier) {
       case 'bold':

@@ -1,3 +1,10 @@
+### [2.2.1](https://github.com/nartc/notion-stuff/compare/2.2.0...2.2.1) (2021-10-13)
+
+
+### Documentations
+
+* update README for v4-types ([69d7898](https://github.com/nartc/notion-stuff/commit/69d7898114654c8776354e8ffa1cab51ddd14158))
+
 ## [2.2.0](https://github.com/nartc/notion-stuff/compare/2.1.1...2.2.0) (2021-10-13)
 
 

@@ -1,11 +1,12 @@
-import type { PropertyValueMap } from '@notionhq/client/build/src/api-endpoints';
 import type {
-  FormulaPropertyValue,
   PropertyValue,
-  RollupPropertyValue,
-  SelectPropertyValue,
-  User
-} from '@notionhq/client/build/src/api-types';
+  PropertyValueFormula,
+  PropertyValueMap,
+  PropertyValueRollup,
+  PropertyValueSelect,
+  PropertyValueUser,
+} from '@notion-stuff/v4-types';
+
 import { camelize } from './utils';
 
 export function pagePropertiesToFrontmatter(properties: PropertyValueMap) {
@@ -17,7 +18,7 @@ export function pagePropertiesToFrontmatter(properties: PropertyValueMap) {
 
     if (propertyKey === 'Status') {
       frontmatter.published =
-        (propertyValue as SelectPropertyValue).select?.name === 'Published';
+        (propertyValue as PropertyValueSelect).select?.name === 'Published';
     }
   }
 
@@ -43,7 +44,7 @@ function parsePropertyValue(propertyValue: PropertyValue) {
       if (propertyValue.date.end) {
         return [
           new Date(propertyValue.date.start),
-          new Date(propertyValue.date.end)
+          new Date(propertyValue.date.end),
         ];
       }
       return new Date(propertyValue.date.start);
@@ -66,15 +67,15 @@ function parsePropertyValue(propertyValue: PropertyValue) {
     case 'created_time':
       return new Date(propertyValue.created_time);
     case 'created_by':
-      return personify(propertyValue.created_by);
+      return personify(propertyValue.created_by as PropertyValueUser);
     case 'last_edited_time':
       return new Date(propertyValue.last_edited_time);
     case 'last_edited_by':
-      return personify(propertyValue.last_edited_by);
+      return personify(propertyValue.last_edited_by as PropertyValueUser);
   }
 }
 
-function formularize(formulaValue: FormulaPropertyValue) {
+function formularize(formulaValue: PropertyValueFormula) {
   let value: unknown;
 
   switch (formulaValue.formula.type) {
@@ -91,7 +92,7 @@ function formularize(formulaValue: FormulaPropertyValue) {
       if (formulaValue.formula.date?.end) {
         value = [
           formulaValue.formula.date?.start,
-          formulaValue.formula.date?.end
+          formulaValue.formula.date?.end,
         ];
       } else {
         value = formulaValue.formula.date?.start;
@@ -101,7 +102,7 @@ function formularize(formulaValue: FormulaPropertyValue) {
   return value;
 }
 
-function rollup(rollupValue: RollupPropertyValue) {
+function rollup(rollupValue: PropertyValueRollup) {
   let value: unknown;
 
   switch (rollupValue.rollup.type) {
@@ -110,17 +111,14 @@ function rollup(rollupValue: RollupPropertyValue) {
       break;
     case 'date':
       if (rollupValue.rollup.date?.end) {
-        value = [
-          rollupValue.rollup.date?.start,
-          rollupValue.rollup.date?.end
-        ];
+        value = [rollupValue.rollup.date?.start, rollupValue.rollup.date?.end];
       } else {
         value = rollupValue.rollup.date?.start;
       }
       break;
     case 'array':
       value = rollupValue.rollup.array.map((propertyValue) =>
-        parsePropertyValue(propertyValue as PropertyValue)
+        parsePropertyValue(propertyValue as unknown as PropertyValue)
       );
       break;
   }
@@ -128,9 +126,9 @@ function rollup(rollupValue: RollupPropertyValue) {
   return value;
 }
 
-function personify(user: User) {
+function personify(user: PropertyValueUser) {
   return {
     name: user.name,
-    avatar: user.avatar_url
+    avatar: user.avatar_url,
   };
 }

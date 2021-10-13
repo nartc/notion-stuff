@@ -71,7 +71,7 @@ const notionDomRouterValidator = (config: RouteConfig) => {
 async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
   if (!route) return dom;
 
-  const notionClient = route.data?.['notionClient'];
+  const notionClient = route.data?.['notionClient'] as Client;
   const postId = route.data?.['id'];
 
   if (!notionClient) {

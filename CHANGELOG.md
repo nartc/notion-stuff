@@ -1,3 +1,10 @@
+### [2.2.2](https://github.com/nartc/notion-stuff/compare/2.2.1...2.2.2) (2021-10-14)
+
+
+### Bug Fixes
+
+* **markdown:** add EOL_MD to before blockquote ([fcc90cf](https://github.com/nartc/notion-stuff/commit/fcc90cf751676450de0f7dedf1db4e3ba059d80a))
+
 ### [2.2.1](https://github.com/nartc/notion-stuff/compare/2.2.0...2.2.1) (2021-10-13)
 
 

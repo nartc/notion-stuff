@@ -1,6 +1,6 @@
 {
   "name": "@notion-stuff/v4-types",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "dependencies": {
     "@notionhq/client": "~0.4.0"
   },

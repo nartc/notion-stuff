@@ -1,3 +1,10 @@
+## [2.3.0](https://github.com/nartc/notion-stuff/compare/2.2.2...2.3.0) (2021-10-14)
+
+
+### Features
+
+* **scully:** instantiate a global notion instead ([686dec7](https://github.com/nartc/notion-stuff/commit/686dec7914a6d9b8b36a69fed6d2430ae20a551b))
+
 ### [2.2.2](https://github.com/nartc/notion-stuff/compare/2.2.1...2.2.2) (2021-10-14)
 
 

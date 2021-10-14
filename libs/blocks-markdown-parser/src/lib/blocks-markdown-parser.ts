@@ -157,7 +157,10 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
   }
 
   parseQuoteBlock(quoteBlock: QuoteBlock): string {
-    return `> ${this.parseRichTexts(quoteBlock.quote.text)}`.concat(EOL_MD);
+    return EOL_MD.concat(
+      `> ${this.parseRichTexts(quoteBlock.quote.text)}`,
+      EOL_MD
+    );
   }
 
   parseCalloutBlock(calloutBlock: CalloutBlock) {

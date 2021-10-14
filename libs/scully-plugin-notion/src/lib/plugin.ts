@@ -15,6 +15,18 @@ import type { NotionPluginOptions } from './plugin-options';
 export const NotionDom = 'notionDom';
 export const NotionDomRouter = 'notionDomRouter';
 
+let notion: Client;
+
+try {
+  notion = new Client({ auth: process.env.NOTION_API_KEY });
+} catch {
+  log(
+    yellow(
+      'No NOTION_API_KEY in Environment Variables. Attempting to use API key from the route config'
+    )
+  );
+}
+
 async function notionDomRouterPlugin(
   route: string | undefined,
   config: RouteConfig
@@ -25,9 +37,20 @@ async function notionDomRouterPlugin(
   } as RouteConfig;
 
   try {
-    const notion = new Client({
-      auth: mergedConfig.notionApiKey || process.env.NOTION_API_KEY,
-    });
+    if (!notion) {
+      if (!mergedConfig.notionApiKey) {
+        return Promise.reject(
+          new Error(
+            'Notion Client has not been instantiated. Please provide the Notion API Key'
+          )
+        );
+      }
+
+      notion = new Client({
+        auth: mergedConfig.notionApiKey,
+      });
+    }
+
     const posts = await notion.databases.query({
       database_id: mergedConfig.databaseId,
     });
@@ -48,7 +71,6 @@ async function notionDomRouterPlugin(
             id: postResult.id,
             notionUrl: postResult.url,
             cover: postResult.cover,
-            notionClient: notion,
           },
         } as HandledRoute;
       })
@@ -71,10 +93,9 @@ const notionDomRouterValidator = (config: RouteConfig) => {
 async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
   if (!route) return dom;
 
-  const notionClient = route.data?.['notionClient'] as Client;
   const postId = route.data?.['id'];
 
-  if (!notionClient) {
+  if (!notion) {
     log(yellow(`Notion Client not found. Skipping ${route.route}`));
     return Promise.resolve(dom);
   }
@@ -85,7 +106,7 @@ async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
   }
 
   try {
-    const blocks = await notionClient.blocks.children.list({
+    const blocks = await notion.blocks.children.list({
       block_id: postId,
     });
     if (!blocks || !blocks.results.length) {

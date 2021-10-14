@@ -69,7 +69,7 @@ export const config: ScullyConfig = {
       type: NotionDomRouter,
       postRenderers: [NotionDom],
       databaseId: 'your-database-id', // required
-      notionApiKey: 'your-integration-secret', // if this is not set, NOTION_API_KEY environment variable is used
+      notionApiKey: 'your-integration-secret', // if NOTION_API_KEY is set in Environment Variables, it is used instead of notionApiKey
       basePath: '/blog', // optional, should match your route here
       titleSuffix: '', // optional
       slugKey: 'slug', // optional

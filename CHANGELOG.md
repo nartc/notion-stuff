@@ -1,3 +1,10 @@
+### [2.3.2](https://github.com/nartc/notion-stuff/compare/2.3.1...2.3.2) (2021-10-16)
+
+
+### Bug Fixes
+
+* **html:** coerce plain text language to none ([ca9057a](https://github.com/nartc/notion-stuff/commit/ca9057a243501636682c2e58aaf153023b0f51fa))
+
 ### [2.3.1](https://github.com/nartc/notion-stuff/compare/2.3.0...2.3.1) (2021-10-16)
 
 

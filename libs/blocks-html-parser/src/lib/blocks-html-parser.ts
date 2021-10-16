@@ -79,7 +79,8 @@ export class NotionBlocksHtmlParser {
     const renderer = new marked.Renderer();
 
     const codeTransformer = (code: unknown, language: string) => {
-      const langClass = 'language-' + language;
+      const langClass =
+        'language-' + (language.includes('plain') ? 'none' : language);
       if (mdHighlightingOptions === 'hljs') {
         return `<pre><code class='hljs ${langClass}'>${
           (code as Record<string, unknown>).value

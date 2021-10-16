@@ -164,10 +164,12 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
   }
 
   parseCalloutBlock(calloutBlock: CalloutBlock) {
-    const callout = `<p notion-callout>
+    const callout = `<div notion-callout>
 {{icon}}
-${this.parseRichTexts(calloutBlock.callout.text)}
-</p>`;
+<span notion-callout-text>${this.parseRichTexts(
+      calloutBlock.callout.text
+    )}</span>
+</div>`;
 
     function getCalloutIcon(
       icon: CalloutIconEmoji | CalloutIconExternal | CalloutIconFile
@@ -183,9 +185,10 @@ ${this.parseRichTexts(calloutBlock.callout.text)}
       }
     }
 
-    return callout
-      .replace('{{icon}}', getCalloutIcon(calloutBlock.callout.icon))
-      .concat(EOL_MD);
+    return EOL_MD.concat(
+      callout.replace('{{icon}}', getCalloutIcon(calloutBlock.callout.icon)),
+      EOL_MD
+    );
   }
 
   parseHeading(headingBlock: HeadingBlock, headingLevel: number): string {

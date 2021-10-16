@@ -1,3 +1,10 @@
+### [2.3.1](https://github.com/nartc/notion-stuff/compare/2.3.0...2.3.1) (2021-10-16)
+
+
+### Bug Fixes
+
+* **markdown:** parse callout with div ([50d0537](https://github.com/nartc/notion-stuff/commit/50d053745937d70f03361783fbcbfe2200136017))
+
 ## [2.3.0](https://github.com/nartc/notion-stuff/compare/2.2.2...2.3.0) (2021-10-14)
 
 

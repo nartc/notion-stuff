@@ -1,3 +1,15 @@
+## [2.4.0](https://github.com/nartc/notion-stuff/compare/2.3.2...2.4.0) (2021-10-18)
+
+
+### Features
+
+* **markdown:** add youtube video processor to process youtube url ([6e4f99c](https://github.com/nartc/notion-stuff/commit/6e4f99cd66ce2a2716f2b3b7e2fd7645be160b9b))
+
+
+### Bug Fixes
+
+* **markdown:** change paragraph parser to have EOL before and after ([2ab15c8](https://github.com/nartc/notion-stuff/commit/2ab15c86f64fb197bcbf7da817537274d2fe215e))
+
 ### [2.3.2](https://github.com/nartc/notion-stuff/compare/2.3.1...2.3.2) (2021-10-16)
 
 

@@ -26,6 +26,7 @@ import type {
   ToggleBlock,
   VideoBlock,
 } from '@notion-stuff/v4-types';
+import { processExternalVideoUrl } from './external-video.util';
 
 const EOL_MD = '\n';
 
@@ -145,8 +146,9 @@ export class NotionBlocksMarkdownParser {
   }
 
   parseParagraph(paragraphBlock: ParagraphBlock): string {
-    return this.parseRichTexts(paragraphBlock.paragraph.text).concat(
-      EOL_MD.repeat(2)
+    return EOL_MD.concat(
+      this.parseRichTexts(paragraphBlock.paragraph.text),
+      EOL_MD
     );
   }
 
@@ -247,6 +249,13 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
 
   parseVideoBlock(videoBlock: VideoBlock): string {
     const { url, caption } = this.parseFile(videoBlock.video);
+
+    const [processed, iframeOrUrl] = processExternalVideoUrl(url);
+
+    if (processed) {
+      return EOL_MD.concat(iframeOrUrl, EOL_MD);
+    }
+
     return `To be supported: ${url} with ${caption}`.concat(EOL_MD);
   }
 

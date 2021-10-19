@@ -49,7 +49,6 @@ npm install --save-dev @notion-stuff/scully-plugin-notion
   - `Published` status is required because this is being used by the plugin to set the `published` flag for a
     specific `ScullyRoute`. Although this is required for the plugin to work as expected, your intention (as plugin
     consumers) to use the `published` flag is totally up to you.
-  - Note: the text `Published` is case-sensitive to set the published flag along with the column name of `Status`.
 - `Slug` is utilized to setup the route to the post which is needed to be set manually as of the moment.
   - You can call `Slug` whatever you want but this needs to match `slugKey`
 

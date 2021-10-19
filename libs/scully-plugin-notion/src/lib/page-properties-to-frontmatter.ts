@@ -16,9 +16,9 @@ export function pagePropertiesToFrontmatter(properties: PropertyValueMap) {
     const camelizedKey = camelize(propertyKey);
     frontmatter[camelizedKey] = parsePropertyValue(propertyValue);
 
-    if (propertyKey === 'Status') {
+    if (propertyKey.toLowerCase() === 'status') {
       frontmatter.published =
-        (propertyValue as PropertyValueSelect).select?.name === 'Published';
+        (propertyValue as PropertyValueSelect).select?.name.toLowerCase() === 'published';
     }
   }
 

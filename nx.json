@@ -26,18 +26,7 @@
       }
     ]
   },
-  "projects": {
-    "blocks-html-parser": {
-      "tags": []
-    },
-    "blocks-markdown-parser": {
-      "tags": []
-    },
-    "scully-plugin-notion": {
-      "tags": []
-    },
-    "v4-types": {
-      "tags": ["scope:v4-types", "type:lib"]
-    }
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
   }
 }

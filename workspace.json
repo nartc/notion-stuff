@@ -8,35 +8,25 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/blocks-html-parser",
             "tsConfig": "libs/blocks-html-parser/tsconfig.lib.json",
             "packageJson": "libs/blocks-html-parser/package.json",
             "main": "libs/blocks-html-parser/src/index.ts",
-            "assets": [
-              "libs/blocks-html-parser/*.md"
-            ]
+            "assets": ["libs/blocks-html-parser/*.md"]
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/blocks-html-parser/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/blocks-html-parser/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/blocks-html-parser"
-          ],
+          "outputs": ["coverage/libs/blocks-html-parser"],
           "options": {
             "jestConfig": "libs/blocks-html-parser/jest.config.js",
             "passWithNoTests": true
@@ -49,7 +39,8 @@
             "cwd": "dist/libs/blocks-html-parser"
           }
         }
-      }
+      },
+      "tags": []
     },
     "blocks-markdown-parser": {
       "root": "libs/blocks-markdown-parser",
@@ -58,35 +49,25 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/blocks-markdown-parser",
             "tsConfig": "libs/blocks-markdown-parser/tsconfig.lib.json",
             "packageJson": "libs/blocks-markdown-parser/package.json",
             "main": "libs/blocks-markdown-parser/src/index.ts",
-            "assets": [
-              "libs/blocks-markdown-parser/*.md"
-            ]
+            "assets": ["libs/blocks-markdown-parser/*.md"]
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/blocks-markdown-parser/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/blocks-markdown-parser/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/blocks-markdown-parser"
-          ],
+          "outputs": ["coverage/libs/blocks-markdown-parser"],
           "options": {
             "jestConfig": "libs/blocks-markdown-parser/jest.config.js",
             "passWithNoTests": true
@@ -99,7 +80,8 @@
             "cwd": "dist/libs/blocks-markdown-parser"
           }
         }
-      }
+      },
+      "tags": []
     },
     "scully-plugin-notion": {
       "root": "libs/scully-plugin-notion",
@@ -108,35 +90,25 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/scully-plugin-notion",
             "tsConfig": "libs/scully-plugin-notion/tsconfig.lib.json",
             "packageJson": "libs/scully-plugin-notion/package.json",
             "main": "libs/scully-plugin-notion/src/index.ts",
-            "assets": [
-              "libs/scully-plugin-notion/*.md"
-            ]
+            "assets": ["libs/scully-plugin-notion/*.md"]
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/scully-plugin-notion/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/scully-plugin-notion/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/scully-plugin-notion"
-          ],
+          "outputs": ["coverage/libs/scully-plugin-notion"],
           "options": {
             "jestConfig": "libs/scully-plugin-notion/jest.config.js",
             "passWithNoTests": true
@@ -149,7 +121,8 @@
             "cwd": "dist/libs/scully-plugin-notion"
           }
         }
-      }
+      },
+      "tags": []
     },
     "v4-types": {
       "root": "libs/v4-types",
@@ -158,35 +131,25 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/v4-types",
             "tsConfig": "libs/v4-types/tsconfig.lib.json",
             "packageJson": "libs/v4-types/package.json",
             "main": "libs/v4-types/src/index.ts",
-            "assets": [
-              "libs/v4-types/*.md"
-            ]
+            "assets": ["libs/v4-types/*.md"]
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/v4-types/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/v4-types/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/v4-types"
-          ],
+          "outputs": ["coverage/libs/v4-types"],
           "options": {
             "jestConfig": "libs/v4-types/jest.config.js",
             "passWithNoTests": true
@@ -199,10 +162,8 @@
             "cwd": "dist/libs/v4-types"
           }
         }
-      }
+      },
+      "tags": ["scope:v4-types", "type:lib"]
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
   }
 }

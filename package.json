@@ -18,13 +18,13 @@
   },
   "devDependencies": {
     "@notionhq/client": "~0.4.4",
-    "@nrwl/cli": "12.10.0",
-    "@nrwl/eslint-plugin-nx": "12.10.0",
-    "@nrwl/jest": "12.10.0",
-    "@nrwl/linter": "12.10.0",
-    "@nrwl/node": "12.10.0",
-    "@nrwl/tao": "12.10.0",
-    "@nrwl/workspace": "12.10.0",
+    "@nrwl/cli": "13.0.0",
+    "@nrwl/eslint-plugin-nx": "13.0.0",
+    "@nrwl/jest": "13.0.0",
+    "@nrwl/linter": "13.0.0",
+    "@nrwl/node": "13.0.0",
+    "@nrwl/tao": "13.0.0",
+    "@nrwl/workspace": "13.0.0",
     "@release-it/bumper": "3.0.1",
     "@release-it/conventional-changelog": "3.3.0",
     "@scullyio/scully": "2.0.1",
@@ -55,3 +55,4 @@
     }
   }
 }
+

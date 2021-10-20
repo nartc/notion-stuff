@@ -77,7 +77,8 @@ import { ScullyConfig, setPluginConfig } from '@scullyio/scully';
 import {
   NotionDom,
   NotionDomRouter,
-  NotionPluginOptions,
+  NotionDomPluginOptions,
+  NotionDomRouterPluginOptions
 } from '@notion-stuff/scully-plugin-notion';
 
 setPluginConfig(NotionDom, {
@@ -86,7 +87,7 @@ setPluginConfig(NotionDom, {
      ... customer the parser ...
      */
   },
-} as NotionPluginOptions);
+} as NotionDomPluginOptions);
 
 export const config: ScullyConfig = {
   projectRoot: './src',
@@ -101,7 +102,7 @@ export const config: ScullyConfig = {
       basePath: '/blog', // optional, should match your route here
       titleSuffix: '', // optional
       slugKey: 'slug', // optional
-    },
+    } as NotionDomRouterPluginOptions,
   },
 };
 ```

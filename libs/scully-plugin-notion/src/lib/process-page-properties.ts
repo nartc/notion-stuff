@@ -1,25 +1,34 @@
 import type {
+  PostResult,
   PropertyValue,
   PropertyValueFormula,
-  PropertyValueMap,
   PropertyValueRollup,
   PropertyValueSelect,
-  PropertyValueUser,
+  PropertyValueUser
 } from '@notion-stuff/v4-types';
+import type { NotionDomRouterPluginOptions } from './plugin-options';
 
 import { camelize } from './utils';
 
-export function pagePropertiesToFrontmatter(properties: PropertyValueMap) {
+export function processPageProperties(post: PostResult, options: NotionDomRouterPluginOptions) {
+  if (options.postResultProcessor) {
+    return options.postResultProcessor(post, options, parsePropertyValue);
+  }
+
   const frontmatter: Record<string, unknown> = { published: false };
 
-  for (const [propertyKey, propertyValue] of Object.entries(properties)) {
+  for (const [propertyKey, propertyValue] of Object.entries(post.properties)) {
     const camelizedKey = camelize(propertyKey);
     frontmatter[camelizedKey] = parsePropertyValue(propertyValue);
 
-    if (propertyKey.toLowerCase() === 'status') {
+    if (!options.isPublished && propertyKey.toLowerCase() === 'status') {
       frontmatter.published =
         (propertyValue as PropertyValueSelect).select?.name.toLowerCase() === 'published';
     }
+  }
+
+  if (options.isPublished) {
+    frontmatter.published = options.isPublished(frontmatter);
   }
 
   return frontmatter;
@@ -44,7 +53,7 @@ function parsePropertyValue(propertyValue: PropertyValue) {
       if (propertyValue.date.end) {
         return [
           new Date(propertyValue.date.start),
-          new Date(propertyValue.date.end),
+          new Date(propertyValue.date.end)
         ];
       }
       return new Date(propertyValue.date.start);
@@ -92,7 +101,7 @@ function formularize(formulaValue: PropertyValueFormula) {
       if (formulaValue.formula.date?.end) {
         value = [
           formulaValue.formula.date?.start,
-          formulaValue.formula.date?.end,
+          formulaValue.formula.date?.end
         ];
       } else {
         value = formulaValue.formula.date?.start;
@@ -129,6 +138,6 @@ function rollup(rollupValue: PropertyValueRollup) {
 function personify(user: PropertyValueUser) {
   return {
     name: user.name,
-    avatar: user.avatar_url,
+    avatar: user.avatar_url
   };
 }

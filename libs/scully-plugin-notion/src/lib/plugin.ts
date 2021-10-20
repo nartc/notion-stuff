@@ -1,19 +1,20 @@
 import { NotionBlocksHtmlParser } from '@notion-stuff/blocks-html-parser';
 import { Client } from '@notionhq/client/build/src';
 import type { HandledRoute, RouteConfig } from '@scullyio/scully';
-import {
-  getPluginConfig,
-  log,
-  red,
-  registerPlugin,
-  yellow,
-} from '@scullyio/scully';
+import { getPluginConfig, log, red, registerPlugin, yellow } from '@scullyio/scully';
 import { injectHtml } from '@scullyio/scully/src/lib/renderPlugins/content-render-utils/injectHtml';
-import { pagePropertiesToFrontmatter } from './page-properties-to-frontmatter';
-import type { NotionPluginOptions } from './plugin-options';
+import type { NotionDomPluginOptions, NotionDomRouterPluginOptions } from './plugin-options';
+import { processPageProperties } from './process-page-properties';
 
 export const NotionDom = 'notionDom';
 export const NotionDomRouter = 'notionDomRouter';
+
+const pluginOptions: NotionDomPluginOptions =
+  getPluginConfig(NotionDom, 'postProcessByDom') || {};
+
+const notionBlocksHtmlParser = NotionBlocksHtmlParser.getInstance(
+  pluginOptions.notionBlocksHtmlParserOptions
+);
 
 let notion: Client;
 
@@ -29,12 +30,12 @@ try {
 
 async function notionDomRouterPlugin(
   route: string | undefined,
-  config: RouteConfig
+  config: NotionDomRouterPluginOptions
 ) {
   const mergedConfig = {
-    ...{ slugKey: 'slug', basePath: '/blog', titleSuffix: '' },
-    ...(config || {}),
-  } as RouteConfig;
+    ...{ slugKey: 'slug', basePath: '/blog', titleSuffix: '', defaultPostIcon: '' },
+    ...config
+  };
 
   try {
     if (!notion) {
@@ -47,17 +48,36 @@ async function notionDomRouterPlugin(
       }
 
       notion = new Client({
-        auth: mergedConfig.notionApiKey,
+        auth: mergedConfig.notionApiKey
       });
     }
 
     const posts = await notion.databases.query({
-      database_id: mergedConfig.databaseId,
+      database_id: mergedConfig.databaseId
     });
 
     return Promise.resolve(
       posts.results.map((postResult) => {
-        const frontmatter = pagePropertiesToFrontmatter(postResult.properties);
+        const frontmatter = processPageProperties(postResult, mergedConfig);
+
+        const { url: cover } =
+          NotionBlocksHtmlParser.getMarkdownParser().parseFile(
+            postResult.cover
+          );
+
+        let icon = mergedConfig.defaultPostIcon;
+        switch (postResult.icon.type) {
+          case 'emoji':
+            icon = postResult.icon.emoji;
+            break;
+          case 'external':
+          case 'file':
+            icon = NotionBlocksHtmlParser.getMarkdownParser().parseFile(
+              postResult.icon
+            ).url;
+            break;
+        }
+
         return {
           type: mergedConfig.type,
           route: `${mergedConfig.basePath}/${
@@ -70,8 +90,9 @@ async function notionDomRouterPlugin(
             ...frontmatter,
             id: postResult.id,
             notionUrl: postResult.url,
-            cover: postResult.cover,
-          },
+            cover,
+            icon
+          }
         } as HandledRoute;
       })
     );
@@ -107,18 +128,12 @@ async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
 
   try {
     const blocks = await notion.blocks.children.list({
-      block_id: postId,
+      block_id: postId
     });
     if (!blocks || !blocks.results.length) {
       log(yellow(`Post does not have any blocks. Skipping ${route.route}`));
       return Promise.resolve(dom);
     }
-
-    const pluginOptions: NotionPluginOptions =
-      getPluginConfig(NotionDom, 'postProcessByDom') || {};
-    const notionBlocksHtmlParser = NotionBlocksHtmlParser.getInstance(
-      pluginOptions.notionBlocksHtmlParserOptions
-    );
 
     return injectHtml(dom, notionBlocksHtmlParser.parse(blocks.results), route);
   } catch (e) {

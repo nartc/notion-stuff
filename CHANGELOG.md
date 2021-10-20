@@ -1,3 +1,26 @@
+## [3.0.0](https://github.com/nartc/notion-stuff/compare/2.4.0...3.0.0) (2021-10-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **scully:** - `NotionPluginOptions` -> `NotionDomPluginOptions`
+
+### Features
+
+* **html:** expose MarkdownParser ([600ed9c](https://github.com/nartc/notion-stuff/commit/600ed9cf97e3b0cb8133f9dbe273ab9162797925))
+* **markdown:** support Divider now ([37116e7](https://github.com/nartc/notion-stuff/commit/37116e74cb9b23c881403d746b90788e8363aefd))
+* **scully:** support icon, cover, and more customization for Page Properties ([2b9e1ac](https://github.com/nartc/notion-stuff/commit/2b9e1ac27c0e3eb7d6da60ddaca372e9b18358a7))
+
+
+### Bug Fixes
+
+* **v4-types:** widen file type for cover ([26868bc](https://github.com/nartc/notion-stuff/commit/26868bc2fd408b4815643283942ee592dc575008))
+
+
+### Documentations
+
+* **scully:** add info about database column naming conversion/convention ([#1](https://github.com/nartc/notion-stuff/issues/1)) ([c52b178](https://github.com/nartc/notion-stuff/commit/c52b178f07275f89b6eb8e08406d20e8de2184fa))
+
 ## [2.4.0](https://github.com/nartc/notion-stuff/compare/2.3.2...2.4.0) (2021-10-18)
 
 

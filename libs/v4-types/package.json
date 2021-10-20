@@ -2,7 +2,7 @@
   "name": "@notion-stuff/v4-types",
   "version": "3.0.0",
   "dependencies": {
-    "@notionhq/client": "~0.4.0"
+    "@notionhq/client": "~0.4.4"
   },
   "peerDependencies": {
     "@scullyio/scully": "^2.0.0"

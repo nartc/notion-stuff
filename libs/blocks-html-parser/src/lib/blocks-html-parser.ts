@@ -42,6 +42,14 @@ export class NotionBlocksHtmlParser {
     return this.instance;
   }
 
+  static getMarkdownParser(): NotionBlocksMarkdownParser {
+    if (!this.markdownParser) {
+      throw new Error('MarkdownParser is not available until HtmlParser instance has been created');
+    }
+
+    return this.markdownParser;
+  }
+
   parse(blocks: Block[]) {
     const markdown = NotionBlocksHtmlParser.markdownParser.parse(blocks);
     const { mdToHtmlOptions } = this.parserOptions;

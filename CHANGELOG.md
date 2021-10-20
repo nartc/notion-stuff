@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/nartc/notion-stuff/compare/3.0.0...3.1.0) (2021-10-20)
+
+
+### Features
+
+* bump notionClient dep ([cca14f4](https://github.com/nartc/notion-stuff/commit/cca14f4556128bc997b24dbad0e30515ccb4c4e0))
+
 ## [3.0.0](https://github.com/nartc/notion-stuff/compare/2.4.0...3.0.0) (2021-10-20)
 
 

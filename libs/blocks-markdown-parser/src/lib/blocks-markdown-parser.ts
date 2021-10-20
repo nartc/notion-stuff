@@ -7,7 +7,7 @@ import type {
   CalloutIconEmoji,
   CalloutIconExternal,
   CalloutIconFile,
-  CodeBlock,
+  CodeBlock, DividerBlock,
   EmbedBlock,
   ExternalFileWithCaption,
   FileBlock,
@@ -21,10 +21,10 @@ import type {
   RichText,
   RichTextEquation,
   RichTextMention,
-  RichTextText,
+  RichTextText, TocBlock,
   ToDoBlock,
   ToggleBlock,
-  VideoBlock,
+  VideoBlock
 } from '@notion-stuff/v4-types';
 import { processExternalVideoUrl } from './external-video.util';
 
@@ -138,6 +138,10 @@ export class NotionBlocksMarkdownParser {
 
         if (childBlock.type === 'pdf') {
           markdown += this.parsePdfBlock(childBlock).concat(childBlockString);
+        }
+
+        if (childBlock.type === 'divider') {
+          markdown += EOL_MD.concat('---', EOL_MD, childBlockString);
         }
 
         return markdown;

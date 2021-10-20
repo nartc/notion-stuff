@@ -4,8 +4,8 @@ import type {
 } from '@notionhq/client/build/src/api-endpoints';
 
 /** Property **/
-export type PropertyValueMap =
-  QueryDatabaseResponse['results'][number]['properties'];
+export type PostResult = QueryDatabaseResponse['results'][number];
+export type PropertyValueMap = PostResult['properties'];
 export type PropertyValue = PropertyValueMap[string];
 
 export type PropertyValueType = PropertyValue['type'];
@@ -92,6 +92,9 @@ export type PDFBlock = ExtractedBlockType<'pdf'>;
 export type FileBlock = ExtractedBlockType<'file'>;
 export type AudioBlock = ExtractedBlockType<'audio'>;
 
+export type TocBlock = ExtractedBlockType<'table_of_contents'>;
+export type DividerBlock = ExtractedBlockType<'divider'>;
+
 export type UnsupportedBlock = ExtractedBlockType<'unsupported'>;
 
 /** RichText **/
@@ -121,8 +124,8 @@ export type ExtractedFile<TType extends FileType> = Extract<
   { type: TType }
 >;
 
-export type ExternalFileWithCaption = ExtractedFile<'external'>;
-export type FileWithCaption = ExtractedFile<'file'>;
+export type ExternalFileWithCaption = Omit<ExtractedFile<'external'>, 'caption'> & {caption?: ExtractedFile<'external'>['caption']};
+export type FileWithCaption = Omit<ExtractedFile<'file'>, 'caption'> & {caption?: ExtractedFile<'file'>['caption']};
 
 /** Callout */
 export type CalloutIcon = CalloutBlock['callout']['icon'];

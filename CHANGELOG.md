@@ -1,3 +1,10 @@
+### [3.1.1](https://github.com/nartc/notion-stuff/compare/3.1.0...3.1.1) (2021-10-21)
+
+
+### Bug Fixes
+
+* **scully:** ensure to get the plugin options after plugin has been registered ([4e9571e](https://github.com/nartc/notion-stuff/commit/4e9571e5e88587e677231cd190fa0d74621fea76))
+
 ## [3.1.0](https://github.com/nartc/notion-stuff/compare/3.0.0...3.1.0) (2021-10-20)
 
 

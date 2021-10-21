@@ -24,13 +24,13 @@ let pluginOptions: NotionDomPluginOptions;
 
 function setupParserAndPluginOptions() {
   if (!pluginOptions) {
-    pluginOptions = getPluginConfig(NotionDom, 'postProcessByDom') || {}
+    pluginOptions = getPluginConfig(NotionDom, 'postProcessByDom') || {};
   }
 
   if (!htmlParser) {
     htmlParser = NotionBlocksHtmlParser.getInstance(
       pluginOptions.notionBlocksHtmlParserOptions
-    )
+    );
   }
 }
 
@@ -83,22 +83,27 @@ async function notionDomRouterPlugin(
       posts.results.map((postResult) => {
         const frontmatter = processPageProperties(postResult, mergedConfig);
 
-        const { url: cover } =
-          NotionBlocksHtmlParser.getMarkdownParser().parseFile(
-            postResult.cover
-          );
-
+        let cover = '';
         let icon = mergedConfig.defaultPostIcon;
-        switch (postResult.icon.type) {
-          case 'emoji':
-            icon = postResult.icon.emoji;
-            break;
-          case 'external':
-          case 'file':
-            icon = NotionBlocksHtmlParser.getMarkdownParser().parseFile(
-              postResult.icon
-            ).url;
-            break;
+
+        if (postResult.cover) {
+          cover = NotionBlocksHtmlParser.getMarkdownParser().parseFile(
+            postResult.cover
+          ).url;
+        }
+
+        if (postResult.icon) {
+          switch (postResult.icon.type) {
+            case 'emoji':
+              icon = postResult.icon.emoji;
+              break;
+            case 'external':
+            case 'file':
+              icon = NotionBlocksHtmlParser.getMarkdownParser().parseFile(
+                postResult.icon
+              ).url;
+              break;
+          }
         }
 
         return {

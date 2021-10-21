@@ -3,7 +3,8 @@ import { PostResult, PropertyValue } from '@notion-stuff/v4-types';
 import type { RouteConfig } from '@scullyio/scully';
 
 
-export interface NotionDomRouterPluginOptions extends RouteConfig {
+export interface NotionDomRouterPluginOptions extends Omit<RouteConfig, 'type'> {
+  type: string;
   /**
    * @requires string Notion DatabaseID
    */

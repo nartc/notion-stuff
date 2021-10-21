@@ -1,3 +1,15 @@
+### [3.1.3](https://github.com/nartc/notion-stuff/compare/3.1.2...3.1.3) (2021-10-21)
+
+
+### Bug Fixes
+
+* **html:** handle undefined language param ([#2](https://github.com/nartc/notion-stuff/issues/2)) ([a77409a](https://github.com/nartc/notion-stuff/commit/a77409a2b4f1393d25d0d7982059d687269cd0d1))
+
+
+### Documentations
+
+* add [@barbados-clemens](https://github.com/barbados-clemens) as a contributor ([4b81cba](https://github.com/nartc/notion-stuff/commit/4b81cba2ad92f68d5525a1f9f631f074852f5301))
+
 ### [3.1.2](https://github.com/nartc/notion-stuff/compare/3.1.1...3.1.2) (2021-10-21)
 
 

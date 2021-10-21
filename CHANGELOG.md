@@ -1,3 +1,10 @@
+### [3.1.2](https://github.com/nartc/notion-stuff/compare/3.1.1...3.1.2) (2021-10-21)
+
+
+### Bug Fixes
+
+* **scully:** null check cover and icon before processing ([c034ef6](https://github.com/nartc/notion-stuff/commit/c034ef686992f5152d352a4e734d828a4ddba1ff))
+
 ### [3.1.1](https://github.com/nartc/notion-stuff/compare/3.1.0...3.1.1) (2021-10-21)
 
 

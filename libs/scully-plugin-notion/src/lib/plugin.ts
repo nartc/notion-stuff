@@ -1,22 +1,38 @@
 import { NotionBlocksHtmlParser } from '@notion-stuff/blocks-html-parser';
 import { Client } from '@notionhq/client/build/src';
 import type { HandledRoute, RouteConfig } from '@scullyio/scully';
-import { getPluginConfig, log, red, registerPlugin, yellow } from '@scullyio/scully';
+import {
+  getPluginConfig,
+  log,
+  red,
+  registerPlugin,
+  yellow,
+} from '@scullyio/scully';
 import { injectHtml } from '@scullyio/scully/src/lib/renderPlugins/content-render-utils/injectHtml';
-import type { NotionDomPluginOptions, NotionDomRouterPluginOptions } from './plugin-options';
+import type {
+  NotionDomPluginOptions,
+  NotionDomRouterPluginOptions,
+} from './plugin-options';
 import { processPageProperties } from './process-page-properties';
 
 export const NotionDom = 'notionDom';
 export const NotionDomRouter = 'notionDomRouter';
 
-const pluginOptions: NotionDomPluginOptions =
-  getPluginConfig(NotionDom, 'postProcessByDom') || {};
-
-const notionBlocksHtmlParser = NotionBlocksHtmlParser.getInstance(
-  pluginOptions.notionBlocksHtmlParserOptions
-);
-
 let notion: Client;
+let htmlParser: NotionBlocksHtmlParser;
+let pluginOptions: NotionDomPluginOptions;
+
+function setupParserAndPluginOptions() {
+  if (!pluginOptions) {
+    pluginOptions = getPluginConfig(NotionDom, 'postProcessByDom') || {}
+  }
+
+  if (!htmlParser) {
+    htmlParser = NotionBlocksHtmlParser.getInstance(
+      pluginOptions.notionBlocksHtmlParserOptions
+    )
+  }
+}
 
 try {
   notion = new Client({ auth: process.env.NOTION_API_KEY });
@@ -33,8 +49,13 @@ async function notionDomRouterPlugin(
   config: NotionDomRouterPluginOptions
 ) {
   const mergedConfig = {
-    ...{ slugKey: 'slug', basePath: '/blog', titleSuffix: '', defaultPostIcon: '' },
-    ...config
+    ...{
+      slugKey: 'slug',
+      basePath: '/blog',
+      titleSuffix: '',
+      defaultPostIcon: '',
+    },
+    ...config,
   };
 
   try {
@@ -48,13 +69,15 @@ async function notionDomRouterPlugin(
       }
 
       notion = new Client({
-        auth: mergedConfig.notionApiKey
+        auth: mergedConfig.notionApiKey,
       });
     }
 
     const posts = await notion.databases.query({
-      database_id: mergedConfig.databaseId
+      database_id: mergedConfig.databaseId,
     });
+
+    setupParserAndPluginOptions();
 
     return Promise.resolve(
       posts.results.map((postResult) => {
@@ -91,8 +114,8 @@ async function notionDomRouterPlugin(
             id: postResult.id,
             notionUrl: postResult.url,
             cover,
-            icon
-          }
+            icon,
+          },
         } as HandledRoute;
       })
     );
@@ -128,14 +151,14 @@ async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
 
   try {
     const blocks = await notion.blocks.children.list({
-      block_id: postId
+      block_id: postId,
     });
     if (!blocks || !blocks.results.length) {
       log(yellow(`Post does not have any blocks. Skipping ${route.route}`));
       return Promise.resolve(dom);
     }
 
-    return injectHtml(dom, notionBlocksHtmlParser.parse(blocks.results), route);
+    return injectHtml(dom, htmlParser.parse(blocks.results), route);
   } catch (e) {
     log(red(`Something went wrong. ${e}`));
     return Promise.resolve(dom);

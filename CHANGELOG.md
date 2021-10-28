@@ -1,3 +1,20 @@
+## [3.2.0](https://github.com/nartc/notion-stuff/compare/3.1.3...3.2.0) (2021-10-28)
+
+
+### Features
+
+* **markdown:** add support for empty paragraph with non-breaking space ([4531ae0](https://github.com/nartc/notion-stuff/commit/4531ae0877fe70761cb32d277deff406bf9fddfe))
+
+
+### Cleanup
+
+* **markdown:** reformat ([543597f](https://github.com/nartc/notion-stuff/commit/543597f82e74953305deb36c1b2e40c9304a0978))
+
+
+### Documentations
+
+* add @MarcARoberge as a contributor ([0a62355](https://github.com/nartc/notion-stuff/commit/0a62355d538d67c9176a341059ccf148beeafb4d))
+
 ### [3.1.3](https://github.com/nartc/notion-stuff/compare/3.1.2...3.1.3) (2021-10-21)
 
 

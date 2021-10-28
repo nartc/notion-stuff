@@ -8,7 +8,6 @@ import type {
   CalloutIconExternal,
   CalloutIconFile,
   CodeBlock,
-  DividerBlock,
   EmbedBlock,
   ExternalFileWithCaption,
   FileBlock,
@@ -23,7 +22,6 @@ import type {
   RichTextEquation,
   RichTextMention,
   RichTextText,
-  TocBlock,
   ToDoBlock,
   ToggleBlock,
   VideoBlock,
@@ -157,7 +155,7 @@ export class NotionBlocksMarkdownParser {
   }
 
   parseParagraph(paragraphBlock: ParagraphBlock): string {
-    let text = '';
+    let text: string;
 
     if (
       this.parserOptions.emptyParagraphToNonBreakingSpace &&

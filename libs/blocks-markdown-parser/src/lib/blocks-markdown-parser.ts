@@ -7,7 +7,8 @@ import type {
   CalloutIconEmoji,
   CalloutIconExternal,
   CalloutIconFile,
-  CodeBlock, DividerBlock,
+  CodeBlock,
+  DividerBlock,
   EmbedBlock,
   ExternalFileWithCaption,
   FileBlock,
@@ -21,10 +22,11 @@ import type {
   RichText,
   RichTextEquation,
   RichTextMention,
-  RichTextText, TocBlock,
+  RichTextText,
+  TocBlock,
   ToDoBlock,
   ToggleBlock,
-  VideoBlock
+  VideoBlock,
 } from '@notion-stuff/v4-types';
 import { processExternalVideoUrl } from './external-video.util';
 
@@ -32,6 +34,7 @@ const EOL_MD = '\n';
 
 export interface NotionBlocksMarkdownParserOptions {
   imageAsFigure: boolean;
+  emptyParagraphToNonBreakingSpace: boolean;
 }
 
 export class NotionBlocksMarkdownParser {
@@ -39,7 +42,11 @@ export class NotionBlocksMarkdownParser {
   private readonly parserOptions: Required<NotionBlocksMarkdownParserOptions>;
 
   private constructor(options?: Partial<NotionBlocksMarkdownParserOptions>) {
-    this.parserOptions = { imageAsFigure: true, ...(options || {}) };
+    this.parserOptions = {
+      imageAsFigure: true,
+      emptyParagraphToNonBreakingSpace: false,
+      ...(options || {}),
+    };
   }
 
   static getInstance(options?: Partial<NotionBlocksMarkdownParserOptions>) {
@@ -150,10 +157,18 @@ export class NotionBlocksMarkdownParser {
   }
 
   parseParagraph(paragraphBlock: ParagraphBlock): string {
-    return EOL_MD.concat(
-      this.parseRichTexts(paragraphBlock.paragraph.text),
-      EOL_MD
-    );
+    let text = '';
+
+    if (
+      this.parserOptions.emptyParagraphToNonBreakingSpace &&
+      paragraphBlock.paragraph.text.length === 0
+    ) {
+      text = '&nbsp;';
+    } else {
+      text = this.parseRichTexts(paragraphBlock.paragraph.text);
+    }
+
+    return EOL_MD.concat(text, EOL_MD);
   }
 
   parseCodeBlock(codeBlock: CodeBlock): string {

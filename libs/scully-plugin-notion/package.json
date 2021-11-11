@@ -1,6 +1,6 @@
 {
   "name": "@notion-stuff/scully-plugin-notion",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "dependencies": {
     "@notionhq/client": "~0.4.6"
   },

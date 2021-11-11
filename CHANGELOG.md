@@ -1,3 +1,18 @@
+## [4.0.0](https://github.com/nartc/notion-stuff/compare/3.2.0...4.0.0) (2021-11-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **html:** - Marked 4 no longer provides default import
+* **v4-types:** - Update notionhq/client to 0.4.6
+
+### Features
+
+* **html:** adapt to Marked 4 ([ad8f1fe](https://github.com/nartc/notion-stuff/commit/ad8f1fe09bca72cadf1dccf7fc344e0bef0b1c57))
+* **markdown:** update notionhq/client 0.4.6 ([66c8f64](https://github.com/nartc/notion-stuff/commit/66c8f645fa5c12205b2ca35fd1ff20bf42248ea1))
+* **scully:** update notionhq/client 0.4.6 ([cb7fc51](https://github.com/nartc/notion-stuff/commit/cb7fc51266e6aee96ec5812b055c7d89fbff2bf0))
+* **v4-types:** add Column and ColumnList ([009ebaa](https://github.com/nartc/notion-stuff/commit/009ebaab605ec49f9f22560542a48f57bac8cf84)), closes [#8](https://github.com/nartc/notion-stuff/issues/8)
+
 ## [3.2.0](https://github.com/nartc/notion-stuff/compare/3.1.3...3.2.0) (2021-10-28)
 
 

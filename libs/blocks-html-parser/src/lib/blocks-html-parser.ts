@@ -1,5 +1,6 @@
 import { NotionBlocksMarkdownParser } from '@notion-stuff/blocks-markdown-parser';
 import type { Block } from '@notion-stuff/v4-types';
+import type { marked as Marked } from 'marked';
 import type { NotionBlocksHtmlParserOptions } from './interfaces';
 
 export const defaultMarkedOptions = {
@@ -44,7 +45,9 @@ export class NotionBlocksHtmlParser {
 
   static getMarkdownParser(): NotionBlocksMarkdownParser {
     if (!this.markdownParser) {
-      throw new Error('MarkdownParser is not available until HtmlParser instance has been created');
+      throw new Error(
+        'MarkdownParser is not available until HtmlParser instance has been created'
+      );
     }
 
     return this.markdownParser;
@@ -77,7 +80,8 @@ export class NotionBlocksHtmlParser {
     mdHighlightingOptions,
   }: Required<NotionBlocksHtmlParserOptions>) {
     try {
-      marked = require('marked');
+      const _marked = require('marked');
+      marked = _marked.marked || _marked;
     } catch (e) {
       const message = `Error importing package: marked. Please install "marked" package.`;
       console.error(message);
@@ -88,7 +92,8 @@ export class NotionBlocksHtmlParser {
 
     const codeTransformer = (code: unknown, language: string) => {
       const langClass =
-        'language-' + ( !language || language.includes('plain') ? 'none' : language);
+        'language-' +
+        (!language || language.includes('plain') ? 'none' : language);
       if (mdHighlightingOptions === 'hljs') {
         return `<pre><code class='hljs ${langClass}'>${
           (code as Record<string, unknown>).value
@@ -108,7 +113,7 @@ export class NotionBlocksHtmlParser {
       return codeTransformer(code, code.language || language);
     };
 
-    (mdToHtmlOptions as marked.MarkedOptions).renderer = renderer;
+    (mdToHtmlOptions as Marked.MarkedOptions).renderer = renderer;
 
     if (mdHighlightingOptions === 'hljs') {
       if (!hljs) {
@@ -120,7 +125,7 @@ export class NotionBlocksHtmlParser {
           throw new Error(message);
         }
       }
-      (mdToHtmlOptions as marked.MarkedOptions).highlight = (code, lang) => {
+      (mdToHtmlOptions as Marked.MarkedOptions).highlight = (code, lang) => {
         const language = hljs.getLanguage(lang) ? lang : 'plaintext';
         return hljs.highlight(code, { language });
       };
@@ -145,7 +150,7 @@ export class NotionBlocksHtmlParser {
         }
       }
 
-      (mdToHtmlOptions as marked.MarkedOptions).highlight = (code, lang) => {
+      (mdToHtmlOptions as Marked.MarkedOptions).highlight = (code, lang) => {
         if (!prism.languages[lang]) {
           return code;
         }
@@ -153,7 +158,7 @@ export class NotionBlocksHtmlParser {
         return prism.highlight(code, prism.languages[lang]);
       };
     } else {
-      (mdToHtmlOptions as marked.MarkedOptions).highlight =
+      (mdToHtmlOptions as Marked.MarkedOptions).highlight =
         mdHighlightingOptions;
     }
   }

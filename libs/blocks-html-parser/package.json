@@ -2,7 +2,7 @@
   "name": "@notion-stuff/blocks-html-parser",
   "version": "3.2.0",
   "dependencies": {
-    "@notionhq/client": "~0.4.4"
+    "@notionhq/client": "~0.4.6"
   },
   "publishConfig": {
     "access": "public"

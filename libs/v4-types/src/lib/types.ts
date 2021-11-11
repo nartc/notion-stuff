@@ -95,6 +95,9 @@ export type AudioBlock = ExtractedBlockType<'audio'>;
 export type TocBlock = ExtractedBlockType<'table_of_contents'>;
 export type DividerBlock = ExtractedBlockType<'divider'>;
 
+export type ColumnBlock = ExtractedBlockType<'column'>;
+export type ColumnListBlock = ExtractedBlockType<'column_list'>;
+
 export type UnsupportedBlock = ExtractedBlockType<'unsupported'>;
 
 /** RichText **/
@@ -124,8 +127,13 @@ export type ExtractedFile<TType extends FileType> = Extract<
   { type: TType }
 >;
 
-export type ExternalFileWithCaption = Omit<ExtractedFile<'external'>, 'caption'> & {caption?: ExtractedFile<'external'>['caption']};
-export type FileWithCaption = Omit<ExtractedFile<'file'>, 'caption'> & {caption?: ExtractedFile<'file'>['caption']};
+export type ExternalFileWithCaption = Omit<
+  ExtractedFile<'external'>,
+  'caption'
+> & { caption?: ExtractedFile<'external'>['caption'] };
+export type FileWithCaption = Omit<ExtractedFile<'file'>, 'caption'> & {
+  caption?: ExtractedFile<'file'>['caption'];
+};
 
 /** Callout */
 export type CalloutIcon = CalloutBlock['callout']['icon'];

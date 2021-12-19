@@ -1,6 +1,5 @@
 ## [4.0.0](https://github.com/nartc/notion-stuff/compare/3.2.0...4.0.0) (2021-11-11)
 
-
 ### ⚠ BREAKING CHANGES
 
 * **html:** - Marked 4 no longer provides default import

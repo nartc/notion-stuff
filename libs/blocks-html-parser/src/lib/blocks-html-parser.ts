@@ -1,5 +1,5 @@
 import { NotionBlocksMarkdownParser } from '@notion-stuff/blocks-markdown-parser';
-import type { Block } from '@notion-stuff/v4-types';
+import type { Blocks } from '@notion-stuff/v4-types';
 import type { marked as Marked } from 'marked';
 import type { NotionBlocksHtmlParserOptions } from './interfaces';
 
@@ -53,7 +53,7 @@ export class NotionBlocksHtmlParser {
     return this.markdownParser;
   }
 
-  parse(blocks: Block[]) {
+  parse(blocks: Blocks) {
     const markdown = NotionBlocksHtmlParser.markdownParser.parse(blocks);
     const { mdToHtmlOptions } = this.parserOptions;
 

@@ -1,4 +1,5 @@
 import { NotionBlocksHtmlParser } from '@notion-stuff/blocks-html-parser';
+import { Blocks, PostResult } from '@notion-stuff/v4-types';
 import { Client } from '@notionhq/client/build/src';
 import type { HandledRoute, RouteConfig } from '@scullyio/scully';
 import {
@@ -80,7 +81,7 @@ async function notionDomRouterPlugin(
     setupParserAndPluginOptions();
 
     return Promise.resolve(
-      posts.results.map((postResult) => {
+      posts.results.map((postResult: PostResult) => {
         const frontmatter = processPageProperties(postResult, mergedConfig);
 
         let cover = '';
@@ -163,7 +164,7 @@ async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
       return Promise.resolve(dom);
     }
 
-    return injectHtml(dom, htmlParser.parse(blocks.results), route);
+    return injectHtml(dom, htmlParser.parse(blocks.results as Blocks), route);
   } catch (e) {
     log(red(`Something went wrong. ${e}`));
     return Promise.resolve(dom);

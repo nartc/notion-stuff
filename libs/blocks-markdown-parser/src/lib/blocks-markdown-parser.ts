@@ -1,7 +1,7 @@
 import type {
   Annotations,
   AudioBlock,
-  Block,
+  Blocks,
   BulletedListItemBlock,
   CalloutBlock,
   CalloutIconEmoji,
@@ -55,7 +55,7 @@ export class NotionBlocksMarkdownParser {
     return this.instance;
   }
 
-  parse(blocks: Block[], depth = 0): string {
+  parse(blocks: Blocks, depth = 0): string {
     return blocks
       .reduce((markdown, childBlock) => {
         let childBlockString = '';

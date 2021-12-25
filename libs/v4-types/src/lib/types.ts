@@ -4,7 +4,10 @@ import type {
 } from '@notionhq/client/build/src/api-endpoints';
 
 /** Property **/
-export type PostResult = QueryDatabaseResponse['results'][number];
+export type PostResult = Extract<
+  QueryDatabaseResponse['results'][number],
+  { properties: Record<string, unknown> }
+>;
 export type PropertyValueMap = PostResult['properties'];
 export type PropertyValue = PropertyValueMap[string];
 
@@ -49,7 +52,10 @@ export type PropertyValueUserPerson = Extract<
 export type PropertyValueUserBot = Extract<PropertyValueUser, { type: 'bot' }>;
 
 /** Block **/
-export type Block = ListBlockChildrenResponse['results'][number];
+export type Block = Extract<
+  ListBlockChildrenResponse['results'][number],
+  { type: string }
+>;
 
 export type BlockType = Block['type'];
 
@@ -81,6 +87,9 @@ export type CalloutBlock = ExtractedBlockType<'callout'>;
 export type ToDoBlock = ExtractedBlockType<'to_do'>;
 export type BookmarkBlock = ExtractedBlockType<'bookmark'>;
 export type ToggleBlock = ExtractedBlockType<'toggle'>;
+export type TemplateBlock = ExtractedBlockType<'template'>;
+export type SyncedBlock = ExtractedBlockType<'synced_block'>;
+export type BreadcrumbBlock = ExtractedBlockType<'breadcrumb'>;
 
 export type ChildPageBlock = ExtractedBlockType<'child_page'>;
 export type ChildDatabaseBlock = ExtractedBlockType<'child_database'>;
@@ -97,6 +106,9 @@ export type DividerBlock = ExtractedBlockType<'divider'>;
 
 export type ColumnBlock = ExtractedBlockType<'column'>;
 export type ColumnListBlock = ExtractedBlockType<'column_list'>;
+
+export type LinkPreviewBlock = ExtractedBlockType<'link_preview'>;
+export type LinkToPageBlock = ExtractedBlockType<'link_to_page'>;
 
 export type UnsupportedBlock = ExtractedBlockType<'unsupported'>;
 

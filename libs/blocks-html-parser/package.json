@@ -1,6 +1,6 @@
 {
   "name": "@notion-stuff/blocks-html-parser",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "dependencies": {
     "@notionhq/client": "~0.4.6"
   },

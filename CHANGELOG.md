@@ -1,3 +1,15 @@
+## [5.0.0](https://github.com/nartc/notion-stuff/compare/4.0.0...5.0.0) (2021-12-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **v4-types:** - 0.4.11 adds aliases that do not conform with other existing aliases in QueryResult type leading to
+breaking changes
+
+### Features
+
+* **v4-types:** update 0.4.11 ([caf4b59](https://github.com/nartc/notion-stuff/commit/caf4b5978e006f4103c58dc6f91e431050f65de4))
+
 ## [4.0.0](https://github.com/nartc/notion-stuff/compare/3.2.0...4.0.0) (2021-11-11)
 
 ### ⚠ BREAKING CHANGES

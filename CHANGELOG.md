@@ -1,3 +1,10 @@
+## [5.1.0](https://github.com/nartc/notion-stuff/compare/5.0.0...5.1.0) (2021-12-26)
+
+
+### Features
+
+* **html:** render nested markdown in html blocks ([3e0f241](https://github.com/nartc/notion-stuff/commit/3e0f24115701097fb08f67360663ac168decc713))
+
 ## [5.0.0](https://github.com/nartc/notion-stuff/compare/4.0.0...5.0.0) (2021-12-25)
 
 

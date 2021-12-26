@@ -31,7 +31,13 @@ import { processExternalVideoUrl } from './external-video.util';
 const EOL_MD = '\n';
 
 export interface NotionBlocksMarkdownParserOptions {
+  /**
+   * Use <figure> and <figcaption>
+   */
   imageAsFigure: boolean;
+  /**
+   * When a paragraphBlock#text is empty, render a &nbsp;
+   */
   emptyParagraphToNonBreakingSpace: boolean;
 }
 
@@ -184,10 +190,10 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
 
   parseCalloutBlock(calloutBlock: CalloutBlock) {
     const callout = `<div notion-callout>
-{{icon}}
-<span notion-callout-text>${this.parseRichTexts(
-      calloutBlock.callout.text
-    )}</span>
+  {{icon}}
+  <span notion-callout-text>
+    ${this.parseRichTexts(calloutBlock.callout.text)}
+  </span>
 </div>`;
 
     function getCalloutIcon(
@@ -250,9 +256,9 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
     const { url, caption } = this.parseFile(imageBlock.image);
     if (this.parserOptions.imageAsFigure) {
       return `
-<figure>
+<figure notion-figure>
   <img src='${url}' alt='${caption}'>
-  <figcaption>${caption}</figcaption>
+  <figcaption notion-figcaption>${caption}</figcaption>
 </figure>
 `.concat(EOL_MD);
     }

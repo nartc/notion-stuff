@@ -113,6 +113,13 @@ export class NotionBlocksHtmlParser {
       return codeTransformer(code, code.language || language);
     };
 
+    renderer.html = function (this: typeof renderer, mixedHtml: string) {
+      return mixedHtml.replace(/[^<>]+?(?=<\/[figcaption|span])/g, (match) => {
+        const tokens = (marked as typeof Marked).lexer(match);
+        return (marked as typeof Marked).parser(tokens);
+      });
+    };
+
     (mdToHtmlOptions as Marked.MarkedOptions).renderer = renderer;
 
     if (mdHighlightingOptions === 'hljs') {

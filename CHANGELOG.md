@@ -1,4 +1,28 @@
-## [5.1.0](https://github.com/nartc/notion-stuff/compare/5.0.0...5.1.0) (2021-12-26)
+
+
+## [6.0.0](https://github.com/nartc/notion-stuff/compare/5.1.0...6.0.0) (2022-04-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **repo:** @notionhq/client has been updated to 1.0.0
+
+### Features
+
+* **repo:** update notion client to 1.0.0 ([497a88f](https://github.com/nartc/notion-stuff/commit/497a88f0f5fd1b3e30727eecc56207c6056e2581))
+
+
+### Bug Fixes
+
+* **html:** only set mdToHtmlOptions.highlight if not already passed in ([0349311](https://github.com/nartc/notion-stuff/commit/034931181eb1ef70a0cf6dd7a8918510f3bc2627)), closes [#11](https://github.com/nartc/notion-stuff/issues/11)
+* **markdown:** adjust markdown parser type for 1.0.0 ([3163924](https://github.com/nartc/notion-stuff/commit/31639247f4afbea44bf4868ccbd01f5ad7b7f26d))
+* **scully:** adjust scully plugin type for 1.0.0 ([cb462da](https://github.com/nartc/notion-stuff/commit/cb462dae75477c4009a8355cd50c0892ae5b8213))
+* **v4-types:** add PostResult ([f15c938](https://github.com/nartc/notion-stuff/commit/f15c9381d6b39ea5a8e7050b6e531e5c1a7945b6))
+
+
+### Documentations
+
+* add @Panthaaaa as a contributor ([4edea81](https://github.com/nartc/notion-stuff/commit/4edea81349b9dfc5a92a3f5207f194153613cf2a))## [5.1.0](https://github.com/nartc/notion-stuff/compare/5.0.0...5.1.0) (2021-12-26)
 
 
 ### Features
@@ -275,4 +299,3 @@ breaking changes
 
 * add [@nartc](https://github.com/nartc) as a contributor ([e1ea76f](https://github.com/nartc/notion-stuff/commit/e1ea76f2b00847e7e4375d15b62511fb404a39f4))
 * add README ([c981380](https://github.com/nartc/notion-stuff/commit/c981380ad1e7df2bbe7b60645eb0c74fb48b312a))
-

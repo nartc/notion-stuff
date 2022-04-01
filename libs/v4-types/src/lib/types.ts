@@ -1,10 +1,12 @@
 import type {
   GetBlockResponse,
+  GetDatabaseResponse,
   GetPagePropertyResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 /** Property **/
 
+export type PostResult = Extract<GetDatabaseResponse, { url: string }>;
 export type PropertyValueType = GetPagePropertyResponse['type'];
 
 export type ExtractedPropertyValue<TType extends PropertyValueType> = Extract<

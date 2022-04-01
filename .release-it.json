@@ -41,6 +41,6 @@
     "releaseName": "Release ${version}"
   },
   "hooks": {
-    "after:bump": "yarn build"
+    "after:bump": "pnpm run build"
   }
 }

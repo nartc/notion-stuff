@@ -1,16 +1,19 @@
 import type {
   PostResult,
-  PropertyValue,
   PropertyValueFormula,
   PropertyValueRollup,
   PropertyValueSelect,
-  PropertyValueUser
+  PropertyValueUser,
 } from '@notion-stuff/v4-types';
 import type { NotionDomRouterPluginOptions } from './plugin-options';
 
 import { camelize } from './utils';
+import { GetPagePropertyResponse } from '@notionhq/client/build/src/api-endpoints';
 
-export function processPageProperties(post: PostResult, options: NotionDomRouterPluginOptions) {
+export function processPageProperties(
+  post: PostResult,
+  options: NotionDomRouterPluginOptions
+) {
   if (options.postResultProcessor) {
     return options.postResultProcessor(post, options, parsePropertyValue);
   }
@@ -19,11 +22,15 @@ export function processPageProperties(post: PostResult, options: NotionDomRouter
 
   for (const [propertyKey, propertyValue] of Object.entries(post.properties)) {
     const camelizedKey = camelize(propertyKey);
-    frontmatter[camelizedKey] = parsePropertyValue(propertyValue);
+    frontmatter[camelizedKey] = parsePropertyValue(
+      propertyValue as unknown as GetPagePropertyResponse
+    );
 
     if (!options.isPublished && propertyKey.toLowerCase() === 'status') {
       frontmatter.published =
-        (propertyValue as PropertyValueSelect).select?.name.toLowerCase() === 'published';
+        (
+          propertyValue as unknown as PropertyValueSelect
+        ).select?.name.toLowerCase() === 'published';
     }
   }
 
@@ -34,7 +41,7 @@ export function processPageProperties(post: PostResult, options: NotionDomRouter
   return frontmatter;
 }
 
-function parsePropertyValue(propertyValue: PropertyValue) {
+function parsePropertyValue(propertyValue: GetPagePropertyResponse) {
   switch (propertyValue.type) {
     case 'title':
       return propertyValue.title[0].plain_text;
@@ -53,7 +60,7 @@ function parsePropertyValue(propertyValue: PropertyValue) {
       if (propertyValue.date.end) {
         return [
           new Date(propertyValue.date.start),
-          new Date(propertyValue.date.end)
+          new Date(propertyValue.date.end),
         ];
       }
       return new Date(propertyValue.date.start);
@@ -62,7 +69,7 @@ function parsePropertyValue(propertyValue: PropertyValue) {
     case 'rollup':
       return rollup(propertyValue);
     case 'people':
-      return propertyValue.people.map(personify);
+      return personify(propertyValue.people as PropertyValueUser);
     case 'files':
       return propertyValue.files.map((fileWithName) => fileWithName.name);
     case 'checkbox':
@@ -101,7 +108,7 @@ function formularize(formulaValue: PropertyValueFormula) {
       if (formulaValue.formula.date?.end) {
         value = [
           formulaValue.formula.date?.start,
-          formulaValue.formula.date?.end
+          formulaValue.formula.date?.end,
         ];
       } else {
         value = formulaValue.formula.date?.start;
@@ -127,7 +134,7 @@ function rollup(rollupValue: PropertyValueRollup) {
       break;
     case 'array':
       value = rollupValue.rollup.array.map((propertyValue) =>
-        parsePropertyValue(propertyValue as unknown as PropertyValue)
+        parsePropertyValue(propertyValue as unknown as GetPagePropertyResponse)
       );
       break;
   }
@@ -138,6 +145,6 @@ function rollup(rollupValue: PropertyValueRollup) {
 function personify(user: PropertyValueUser) {
   return {
     name: user.name,
-    avatar: user.avatar_url
+    avatar: user.avatar_url,
   };
 }

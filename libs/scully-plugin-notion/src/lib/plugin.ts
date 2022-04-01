@@ -1,5 +1,5 @@
 import { NotionBlocksHtmlParser } from '@notion-stuff/blocks-html-parser';
-import { Blocks, PostResult } from '@notion-stuff/v4-types';
+import type { Blocks, PostResult } from '@notion-stuff/v4-types';
 import { Client } from '@notionhq/client/build/src';
 import type { HandledRoute, RouteConfig } from '@scullyio/scully';
 import {
@@ -81,7 +81,8 @@ async function notionDomRouterPlugin(
     setupParserAndPluginOptions();
 
     return Promise.resolve(
-      posts.results.map((postResult: PostResult) => {
+      posts.results.map((result) => {
+        const postResult = result as unknown as PostResult;
         const frontmatter = processPageProperties(postResult, mergedConfig);
 
         let cover = '';
@@ -140,7 +141,7 @@ const notionDomRouterValidator = (config: RouteConfig) => {
   return errors;
 };
 
-async function notionDomPlugin(dom: any, route: HandledRoute | undefined) {
+async function notionDomPlugin(dom: unknown, route: HandledRoute | undefined) {
   if (!route) return dom;
 
   const postId = route.data?.['id'];

@@ -1,9 +1,10 @@
 import type { NotionBlocksHtmlParserOptions } from '@notion-stuff/blocks-html-parser';
-import { PostResult, PropertyValue } from '@notion-stuff/v4-types';
+import type { PostResult } from '@notion-stuff/v4-types';
 import type { RouteConfig } from '@scullyio/scully';
+import type { GetPagePropertyResponse } from '@notionhq/client/build/src/api-endpoints';
 
-
-export interface NotionDomRouterPluginOptions extends Omit<RouteConfig, 'type'> {
+export interface NotionDomRouterPluginOptions
+  extends Omit<RouteConfig, 'type'> {
   type: string;
   /**
    * @requires string Notion DatabaseID
@@ -18,12 +19,18 @@ export interface NotionDomRouterPluginOptions extends Omit<RouteConfig, 'type'> 
   /**
    * A custom function that will process the {PostResult} from Notion. You take over the Frontmatter with this function
    */
-  postResultProcessor?<TObject = Record<string, unknown>>(post: PostResult, options: NotionDomRouterPluginOptions, propertyValueParser: (propertyValue: PropertyValue) => any): TObject;
+  postResultProcessor?<TObject = Record<string, unknown>>(
+    post: PostResult,
+    options: NotionDomRouterPluginOptions,
+    propertyValueParser: (propertyValue: GetPagePropertyResponse) => unknown
+  ): TObject;
 
   /**
    * A custom function that will resolve the `published` flag that Scully needs.
    */
-  isPublished?<TObject = Record<string, unknown>>(frontmatter: TObject): boolean;
+  isPublished?<TObject = Record<string, unknown>>(
+    frontmatter: TObject
+  ): boolean;
 
   /**
    * Default icon for your post

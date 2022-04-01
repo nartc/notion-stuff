@@ -165,7 +165,7 @@ export class NotionBlocksMarkdownParser {
 
     if (
       this.parserOptions.emptyParagraphToNonBreakingSpace &&
-      paragraphBlock.paragraph.text.length === 0
+      paragraphBlock.paragraph.rich_text.length === 0
     ) {
       text = '&nbsp;';
     } else {
@@ -177,7 +177,7 @@ export class NotionBlocksMarkdownParser {
 
   parseCodeBlock(codeBlock: CodeBlock): string {
     return `\`\`\`${codeBlock.code.language.toLowerCase() || ''}
-${(codeBlock.code.text[0] as RichTextText).text.content}
+${(codeBlock.code.rich_text[0] as RichTextText).text.content}
 \`\`\``.concat(EOL_MD);
   }
 
@@ -330,7 +330,7 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
   }
 
   parseText(richText: RichTextText): string {
-    let content = this.annotate(richText.annotations, richText.text.content);
+    const content = this.annotate(richText.annotations, richText.text.content);
 
     return richText.text.link
       ? this.annotateLink(richText.text, content)
@@ -364,7 +364,7 @@ ${(codeBlock.code.text[0] as RichTextText).text.content}
     caption: string;
     url: string;
   } {
-    let fileContent = {
+    const fileContent = {
       caption: '',
       url: '',
     };

@@ -80,6 +80,7 @@ export class NotionBlocksHtmlParser {
     mdHighlightingOptions,
   }: Required<NotionBlocksHtmlParserOptions>) {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const _marked = require('marked');
       marked = _marked.marked || _marked;
     } catch (e) {

@@ -123,51 +123,55 @@ export class NotionBlocksHtmlParser {
 
     (mdToHtmlOptions as Marked.MarkedOptions).renderer = renderer;
 
-    if (mdHighlightingOptions === 'hljs') {
-      if (!hljs) {
-        try {
-          hljs = require('highlight.js');
-        } catch (e) {
-          const message = `Error importing package: highlight.js. Please install "highlight.js" package.`;
-          console.error(message);
-          throw new Error(message);
+    if (!(mdToHtmlOptions as Marked.MarkedOptions).highlight) {
+      if (mdHighlightingOptions === 'hljs') {
+        if (!hljs) {
+          try {
+            hljs = require('highlight.js');
+          } catch (e) {
+            const message = `Error importing package: highlight.js. Please install "highlight.js" package.`;
+            console.error(message);
+            throw new Error(message);
+          }
         }
-      }
-      (mdToHtmlOptions as Marked.MarkedOptions).highlight = (code, lang) => {
-        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-        return hljs.highlight(code, { language });
-      };
-    } else if (mdHighlightingOptions === 'prismjs') {
-      if (!prism) {
-        try {
-          prism = require('prismjs');
-          require('prismjs/components/prism-bash');
-          require('prismjs/components/prism-css');
-          require('prismjs/components/prism-javascript');
-          require('prismjs/components/prism-json');
-          require('prismjs/components/prism-markup');
-          require('prismjs/components/prism-markdown');
-          require('prismjs/components/prism-typescript');
-          require('prismjs/components/prism-jsx');
-          require('prismjs/components/prism-tsx');
-          require('prismjs/components/prism-docker');
-        } catch (e) {
-          const message = `Error importing package: prismjs. Please install "prismjs" package.`;
-          console.error(message);
-          throw new Error(message);
-        }
-      }
-
-      (mdToHtmlOptions as Marked.MarkedOptions).highlight = (code, lang) => {
-        if (!prism.languages[lang]) {
-          return code;
+        (mdToHtmlOptions as Marked.MarkedOptions).highlight = (code, lang) => {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          return hljs.highlight(code, { language });
+        };
+      } else if (mdHighlightingOptions === 'prismjs') {
+        if (!prism) {
+          try {
+            prism = require('prismjs');
+            require('prismjs/components/prism-bash');
+            require('prismjs/components/prism-css');
+            require('prismjs/components/prism-javascript');
+            require('prismjs/components/prism-json');
+            require('prismjs/components/prism-markup');
+            require('prismjs/components/prism-markdown');
+            require('prismjs/components/prism-typescript');
+            require('prismjs/components/prism-jsx');
+            require('prismjs/components/prism-tsx');
+            require('prismjs/components/prism-docker');
+          } catch (e) {
+            const message = `Error importing package: prismjs. Please install "prismjs" package.`;
+            console.error(message);
+            throw new Error(message);
+          }
         }
 
-        return prism.highlight(code, prism.languages[lang]);
-      };
-    } else {
-      (mdToHtmlOptions as Marked.MarkedOptions).highlight =
-        mdHighlightingOptions;
+        (mdToHtmlOptions as Marked.MarkedOptions).highlight = (code, lang) => {
+          if (!prism.languages[lang]) {
+            return code;
+          }
+
+          return prism.highlight(code, prism.languages[lang]);
+        };
+      } else {
+        (mdToHtmlOptions as Marked.MarkedOptions).highlight =
+          mdHighlightingOptions;
+      }
     }
+
+
   }
 }

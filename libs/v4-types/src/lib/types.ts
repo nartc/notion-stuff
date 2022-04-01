@@ -1,23 +1,18 @@
 import type {
-  ListBlockChildrenResponse,
-  QueryDatabaseResponse,
+  GetBlockResponse,
+  GetPagePropertyResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 /** Property **/
-export type PostResult = Extract<
-  QueryDatabaseResponse['results'][number],
-  { properties: Record<string, unknown> }
->;
-export type PropertyValueMap = PostResult['properties'];
-export type PropertyValue = PropertyValueMap[string];
 
-export type PropertyValueType = PropertyValue['type'];
+export type PropertyValueType = GetPagePropertyResponse['type'];
 
 export type ExtractedPropertyValue<TType extends PropertyValueType> = Extract<
-  PropertyValue,
+  GetPagePropertyResponse,
   { type: TType }
 >;
 
+export type PropertyValuePropertyItem = ExtractedPropertyValue<'property_item'>;
 export type PropertyValueTitle = ExtractedPropertyValue<'title'>;
 export type PropertyValueRichText = ExtractedPropertyValue<'rich_text'>;
 export type PropertyValueNumber = ExtractedPropertyValue<'number'>;
@@ -37,10 +32,11 @@ export type PropertyValueCreatedBy = ExtractedPropertyValue<'created_by'>;
 export type PropertyValueEditedTime =
   ExtractedPropertyValue<'last_edited_time'>;
 export type PropertyValueEditedBy = ExtractedPropertyValue<'last_edited_by'>;
+export type PropertyValueCheckbox = ExtractedPropertyValue<'checkbox'>;
 
 /** People **/
 export type PropertyValueUser = Extract<
-  PropertyValuePeople['people'][number],
+  PropertyValuePeople['people'],
   { type: string }
 >;
 export type PropertyValueUserType = PropertyValueUser['type'];
@@ -52,10 +48,7 @@ export type PropertyValueUserPerson = Extract<
 export type PropertyValueUserBot = Extract<PropertyValueUser, { type: 'bot' }>;
 
 /** Block **/
-export type Block = Extract<
-  ListBlockChildrenResponse['results'][number],
-  { type: string }
->;
+export type Block = Extract<GetBlockResponse, { type: string }>;
 
 export type BlockType = Block['type'];
 
@@ -79,6 +72,9 @@ export type HeadingBlock =
 
 export type BulletedListItemBlock = ExtractedBlockType<'bulleted_list_item'>;
 export type NumberedListItemBlock = ExtractedBlockType<'numbered_list_item'>;
+
+export type TableBlock = ExtractedBlockType<'table'>;
+export type TableRowBlock = ExtractedBlockType<'table_row'>;
 
 export type QuoteBlock = ExtractedBlockType<'quote'>;
 export type EquationBlock = ExtractedBlockType<'equation'>;
@@ -113,7 +109,7 @@ export type LinkToPageBlock = ExtractedBlockType<'link_to_page'>;
 export type UnsupportedBlock = ExtractedBlockType<'unsupported'>;
 
 /** RichText **/
-export type RichText = ParagraphBlock['paragraph']['text'][number];
+export type RichText = ParagraphBlock['paragraph']['rich_text'][number];
 
 export type Annotations = RichText['annotations'];
 
@@ -125,7 +121,6 @@ export type ExtractedRichText<TType extends RichTextType> = Extract<
 >;
 
 export type RichTextText = ExtractedRichText<'text'>;
-
 export type RichTextMention = ExtractedRichText<'mention'>;
 export type RichTextEquation = ExtractedRichText<'equation'>;
 

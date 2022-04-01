@@ -2,7 +2,7 @@
   "name": "@notion-stuff/scully-plugin-notion",
   "version": "5.1.0",
   "dependencies": {
-    "@notionhq/client": "~0.4.6"
+    "@notionhq/client": "~1.0.0"
   },
   "peerDependencies": {
     "@scullyio/scully": "^2.0.0"
